@@ -1,0 +1,36 @@
+{
+  "name": "ay-engine",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "web base novel game engine",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artistXenon/ay-engine.git"
+  },
+  "keywords": [
+    "web",
+    "novel",
+    "engine",
+    "game"
+  ],
+  "author": "Ailre",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/artistXenon/ay-engine/issues"
+  },
+  "homepage": "https://github.com/artistXenon/ay-engine#readme",
+  "dependencies": {
+    "artistic-engine": "^1.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^5.3.4"
+  }
+}

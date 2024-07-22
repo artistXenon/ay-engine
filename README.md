@@ -1,2 +1,2 @@
-# ay-engine
+# aY engine
 Web based novel game engine 
