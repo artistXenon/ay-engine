@@ -1,0 +1,21 @@
+[
+    {
+        "meta": {
+            "assets": []
+        },
+        "scenario": [
+            {
+                "head": {
+                    "type": "speak",
+                    "beforeBody": [],
+                    "afterBody": []
+                },
+                "body": {
+                    "speaker": "", 
+                    "expression": "",
+                    "line": ""
+                }
+            }
+        ]
+    }
+]
