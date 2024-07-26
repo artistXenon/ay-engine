@@ -31,7 +31,9 @@ const getEngine: () => CustomEngine = () => {
             if (fitWidth) engine.resizeCanvas({ W: innerWidth, H: innerWidth * cfg.resolution.y / cfg.resolution.x });
             else engine.resizeCanvas({ W: innerHeight * cfg.resolution.x / cfg.resolution.y, H: innerHeight });
             engine.Camera.reset();
-            engine.Camera.scale(fitWidth ? innerWidth / cfg.resolution.x : innerHeight / cfg.resolution.y)
+            engine.Camera.scale(fitWidth ? innerWidth / cfg.resolution.x : innerHeight / cfg.resolution.y);
+            // engine.Camera.scale(fitWidth ? cfg.resolution.x / innerWidth: cfg.resolution.y / innerHeight)
+            (<any>window).engine = engine;
         };
         fitScreen();
         addEventListener('resize', fitScreen);

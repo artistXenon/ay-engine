@@ -6,6 +6,8 @@ import { Vector } from "artistic-engine";
 export default abstract class BaseButton extends Sprite implements IPointerListener {
     private pointerVector = new Vector.Vector2D();
 
+    private downed = false;
+
     public RecieveEventsOutOfBound = true;
 
     public abstract onDraw(context: CanvasRenderingContext2D, delay: number): void;
@@ -28,8 +30,10 @@ export default abstract class BaseButton extends Sprite implements IPointerListe
     
         if (inBound) {
             if (type === "pointerdown") {
+                this.downed = true;
                 this.onDown(e);
-            } else if (type === "pointerup") {
+            } else if (type === "pointerup" && this.downed) {
+                this.downed = false;
                 this.onUp(e);
             } else if (type === "pointermove") { // pointerover, pointerenter
                 this.onHover(e);
@@ -37,6 +41,7 @@ export default abstract class BaseButton extends Sprite implements IPointerListe
             return true;
         } else {
             if (type === "pointermove") {
+                this.downed = false;
                 this.onDrop(e);
             }
             return false;
@@ -49,4 +54,3 @@ export default abstract class BaseButton extends Sprite implements IPointerListe
     public abstract onDrop(e: PointerEvent): void;
 
 }
-// 처음부터 이어서 엑스트라 설정 종료

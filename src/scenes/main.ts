@@ -6,23 +6,38 @@ import { MainMenuButton } from '../elements';
 const cfg = Config();
 
 class MainScene extends Scene {
+    // 처음부터 이어서 엑스트라 설정 종료
     public startButton: MainMenuButton;
+
     public continueButton: MainMenuButton;
-    public settingsButton: MainMenuButton;
+
     public extraButton: MainMenuButton;
+
+    public settingsButton: MainMenuButton;
+
     constructor() {
-        super({ W: cfg.resolution.x, H: cfg.resolution.y }); // TODO: temporary value
+        super({ W: cfg.resolution.x, H: cfg.resolution.y }); 
         
         this.startButton = new MainMenuButton();
-        this.continueButton = new MainMenuButton();
-        this.settingsButton = new MainMenuButton();
-        this.extraButton = new MainMenuButton();
-        const buttons = [ this.startButton, this.continueButton, this.settingsButton, this.extraButton ];
+        this.continueButton = new MainMenuButton('blue');
+        this.extraButton = new MainMenuButton('orange');
+        this.settingsButton = new MainMenuButton('green');
+        const buttons = [ this.startButton, this.continueButton, this.extraButton, this.settingsButton ];
 
-        this.startButton.X = 200;
-        this.startButton.Y = 200;
-        this.attachChildren(this.startButton);
-        RunningEngine().PointerGroup.registerPointerListener(this.startButton);
+        this.startButton.X = 100;
+        this.startButton.Y = 100;
+
+        this.continueButton.X = 200;
+        this.continueButton.Y = 200;
+
+        this.extraButton.X = 300;
+        this.extraButton.Y = 300;
+
+        this.settingsButton.X = 400;
+        this.settingsButton.Y = 400;
+
+        this.attachChildren(buttons);
+        RunningEngine().PointerGroup.registerPointerListener(buttons);
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
