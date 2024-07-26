@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/artistXenon/ay-engine#readme",
   "dependencies": {
-    "artistic-engine": "^1.4.0"
+    "artistic-engine": "^1.4.1"
   },
   "devDependencies": {
     "typescript": "^5.2.2",
