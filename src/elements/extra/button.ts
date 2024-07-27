@@ -2,8 +2,7 @@ import { TextSprite } from "artistic-engine/sprite";
 import BaseButton from "../base-button";
 import { RunningEngine } from "../../state";
 
-export default class MainMenuButton extends BaseButton {
-
+export default class ExtraButton extends BaseButton {
     private name;
 
     private color;

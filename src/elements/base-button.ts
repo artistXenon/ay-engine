@@ -6,6 +6,8 @@ import { Vector } from "artistic-engine";
 export default abstract class BaseButton extends Sprite implements IPointerListener {
     private pointerVector = new Vector.Vector2D();
 
+    public Disabled = false;
+
     private downed = false;
 
     public RecieveEventsOutOfBound = true;
@@ -18,6 +20,8 @@ export default abstract class BaseButton extends Sprite implements IPointerListe
 
     onPointer(e: PointerEvent): boolean {
         // TODO: engine update - give bound info as parameter
+        if (this.Disabled) return true;
+    
         const { type, clientX, clientY } = e;
         this.pointerVector.X = this.AbsoluteX;
         this.pointerVector.Y = this.AbsoluteY;

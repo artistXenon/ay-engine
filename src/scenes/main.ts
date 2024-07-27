@@ -1,30 +1,27 @@
 import { Scene } from 'artistic-engine/sprite';
 import { Config, RunningEngine } from '../state';
 import { Engine } from 'artistic-engine';
-import StartButton from '../elements/main-menu/start-button';
-import ContinueButton from '../elements/main-menu/continue-button';
-import ExtraButton from '../elements/main-menu/extra-button';
-import SettingsButton from '../elements/main-menu/settings-button';
+import { MainContinueButton, MainExtraButton, MainSettingsButton, MainStartButton } from '../elements/main-menu';
 
 const cfg = Config();
 
 class MainScene extends Scene {
     // 처음부터 이어서 엑스트라 설정 종료
-    public startButton: StartButton;
+    public startButton: MainStartButton;
 
-    public continueButton: ContinueButton;
+    public continueButton: MainContinueButton;
 
-    public extraButton: ExtraButton;
+    public extraButton: MainExtraButton;
 
-    public settingsButton: SettingsButton;
+    public settingsButton: MainSettingsButton;
 
     constructor() {
         super({ W: cfg.resolution.x, H: cfg.resolution.y }); 
         
-        this.startButton = new StartButton();
-        this.continueButton = new ContinueButton();
-        this.extraButton = new ExtraButton();
-        this.settingsButton = new SettingsButton();
+        this.startButton = new MainStartButton();
+        this.continueButton = new MainContinueButton();
+        this.extraButton = new MainExtraButton();
+        this.settingsButton = new MainSettingsButton();
         const buttons = [ this.startButton, this.continueButton, this.extraButton, this.settingsButton ];
 
         this.startButton.X = 100;

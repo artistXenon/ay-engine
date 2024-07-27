@@ -1,18 +1,18 @@
 import { Scene } from 'artistic-engine/sprite';
 import { Config, RunningEngine } from '../state';
 import { Engine } from 'artistic-engine';
-import QuitButton from '../elements/settings/quit-button';
+import { ExtraQuitButton } from '../elements/extra';
 
-class SettingsScene extends Scene {
+class ExtraScene extends Scene {
     private returnToScene: Scene | undefined;
 
-    private quitButton: QuitButton;
+    private quitButton: ExtraQuitButton;
 
     constructor() {
         const cfg = Config();
         super({ W: cfg.resolution.x, H: cfg.resolution.y });
 
-        this.quitButton = new QuitButton();
+        this.quitButton = new ExtraQuitButton();
         const buttons = [this.quitButton];
 
         this.quitButton.X = 100;
@@ -23,7 +23,7 @@ class SettingsScene extends Scene {
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
-        context.fillStyle = "skyblue";
+        context.fillStyle = "grey";
         context.fillRect(0, 0, this.W, this.H);
     }
 
@@ -37,13 +37,13 @@ class SettingsScene extends Scene {
     }
 }
 
-let settingsScene: SettingsScene;
+let settingsScene: ExtraScene;
 
-const getSettingsScene = () => {
+const getExtraScene = () => {
     if (settingsScene === undefined) {
-        settingsScene = new SettingsScene();
+        settingsScene = new ExtraScene();
     }
     return settingsScene;
 };
 
-export default getSettingsScene;
+export default getExtraScene;
