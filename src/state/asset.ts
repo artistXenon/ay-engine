@@ -1,20 +1,28 @@
 // import ~~ from './~~';
-
+import GowunBatang from "/GowunBatang-Regular.woff";
 import { AssetLoader, Bitmap } from "artistic-engine";
 
-const assetMap = {
-    common: {
+type AssetCart = {
+    images?: string[][];
+    musics?: string[][];
+    sfxs?: string[][];
+    fonts?: string[][];
+};
+
+const assetMap: Map<string, AssetCart> = new Map();
+assetMap
+    .set("common", {
         images: [], // [ name, file?link? ]
         musics: [],
         sfxs: [],
-        fonts: [],
-    },
-    splash: {
+        fonts: [["GowunBatang", `url(${GowunBatang})`]],
+    })
+    .set("splash", {
         images: [],
         musics: [],
         sfxs: [],
-    }
-};
+});
+
 
 // asset 
 
@@ -28,6 +36,18 @@ class AssetManager {
     }
 
     public load(category: string, withAudio: boolean, onLoad: () => void = () => {}) {
+        if (!assetMap.has(category)) throw new Error("No such category of asset: " + category);
+        const { images, musics, sfxs, fonts } = <AssetCart>assetMap.get(category);
+        if (images) {
+            for (const [name, source] of images) {
+                this.assetLoader.addImages(name, source);
+            }
+        }
+        if (fonts) {
+            for (const [name, source] of fonts) {
+                this.assetLoader.addFont(name, source);
+            }
+        }
         // TODO: list assets
 
 

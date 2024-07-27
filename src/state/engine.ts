@@ -1,4 +1,4 @@
-import { Engine } from "artistic-engine";
+import { Engine, FontBuilder } from "artistic-engine";
 import { KeyboardEventGroup, PointerEventGroup } from "artistic-engine/event";
 import { Config } from ".";
 
@@ -9,13 +9,25 @@ class CustomEngine extends Engine {
 
     public PointerGroup: PointerEventGroup;
 
+    private fontBuilderMap: Map<string, FontBuilder>;
+
     constructor() {
         super(canvas);
         this.KeyboardGroup = new KeyboardEventGroup(document.body);
         this.PointerGroup = new PointerEventGroup(this);
+        this.fontBuilderMap = new Map();
 
         this.KeyboardGroup.registerEvent();
         this.PointerGroup.registerEvent();
+    }
+
+    public getFontBuilder(name: string) {
+        if (this.fontBuilderMap.has(name)) {
+            return this.fontBuilderMap.get(name);
+        }
+        const fontbuilder = new FontBuilder(name);
+        this.fontBuilderMap.set(name, fontbuilder);
+        return fontbuilder;
     }
 }
 
