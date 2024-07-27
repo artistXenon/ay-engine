@@ -44,7 +44,9 @@ const getEngine: () => CustomEngine = () => {
             else engine.resizeCanvas({ W: innerHeight * cfg.resolution.x / cfg.resolution.y, H: innerHeight });
             engine.Camera.reset();
             engine.Camera.scale(fitWidth ? innerWidth / cfg.resolution.x : innerHeight / cfg.resolution.y);
-            // engine.Camera.scale(fitWidth ? cfg.resolution.x / innerWidth: cfg.resolution.y / innerHeight)
+
+            if (cfg.fullscreen) canvas.requestFullscreen({ navigationUI: "hide" });
+            
             (<any>window).engine = engine;
         };
         fitScreen();
