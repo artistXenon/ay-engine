@@ -40,11 +40,11 @@ const getEngine: () => CustomEngine = () => {
 
         // resolution
         const fitScreen = () => {
-            const fitWidth = cfg.resolution.x * innerHeight > cfg.resolution.y * innerWidth;
-            if (fitWidth) engine.resizeCanvas({ W: innerWidth, H: innerWidth * cfg.resolution.y / cfg.resolution.x });
-            else engine.resizeCanvas({ W: innerHeight * cfg.resolution.x / cfg.resolution.y, H: innerHeight });
+            const fitWidth = cfg.resolution.X * innerHeight > cfg.resolution.Y * innerWidth;
+            if (fitWidth) engine.resizeCanvas({ W: innerWidth, H: innerWidth * cfg.resolution.Y / cfg.resolution.X });
+            else engine.resizeCanvas({ W: innerHeight * cfg.resolution.X / cfg.resolution.Y, H: innerHeight });
             engine.Camera.reset();
-            engine.Camera.scale(fitWidth ? innerWidth / cfg.resolution.x : innerHeight / cfg.resolution.y);
+            engine.Camera.scale(fitWidth ? innerWidth / cfg.resolution.X : innerHeight / cfg.resolution.Y);
 
             if (cfg.fullscreen) canvas.requestFullscreen({ navigationUI: "hide" });
             

@@ -1,12 +1,11 @@
 import { Scene } from 'artistic-engine/sprite';
-import { Config } from '../state';
 import { Engine } from 'artistic-engine';
-
-const cfg = Config();
+import { ResolutionVector } from '../helper';
 
 class PlayerScene extends Scene {
     constructor() {
-        super({ W: cfg.resolution.x, H: cfg.resolution.y }); // TODO: temporary value
+        super(); // TODO: temporary value
+        this.Dimension = new ResolutionVector(1920, 1080);
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {

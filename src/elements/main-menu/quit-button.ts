@@ -20,6 +20,5 @@ export default class QuitButton extends MainMenuButton {
         }
         MainScene().attachChildren(this.modal);
         RunningEngine().PointerGroup.registerPointerListener(this.modal);
-        // TODO: show close modal
     }
 }

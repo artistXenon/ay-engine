@@ -1,22 +1,23 @@
 import { Scene } from 'artistic-engine/sprite';
-import { Config, RunningEngine } from '../state';
+import { RunningEngine } from '../state';
 import { Engine } from 'artistic-engine';
-import QuitButton from '../elements/settings/quit-button';
+import { SettingsQuitButton } from '../elements/settings';
+import { ResolutionVector } from '../helper';
 
 class SettingsScene extends Scene {
     private returnToScene: Scene | undefined;
 
-    private quitButton: QuitButton;
+    private quitButton: SettingsQuitButton;
 
     constructor() {
-        const cfg = Config();
-        super({ W: cfg.resolution.x, H: cfg.resolution.y });
+        super();
+        this.Dimension = new ResolutionVector(1920, 1080);
 
-        this.quitButton = new QuitButton();
+        this.quitButton = new SettingsQuitButton();
         const buttons = [this.quitButton];
 
-        this.quitButton.X = 100;
-        this.quitButton.Y = 100;
+        (<ResolutionVector>this.quitButton.Position).baseX = 100;
+        (<ResolutionVector>this.quitButton.Position).baseY = 100;
         
         this.attachChildren(buttons);
         RunningEngine().PointerGroup.registerPointerListener(...buttons);

@@ -2,6 +2,7 @@ import { IPointerListener } from "artistic-engine/event";
 import { Sprite } from "artistic-engine/sprite";
 import { RunningEngine } from "../state";
 import { Vector } from "artistic-engine";
+import { ResolutionVector } from "../helper";
 
 export default abstract class BaseButton extends Sprite implements IPointerListener {
     private pointerVector = new Vector.Vector2D();
@@ -16,6 +17,12 @@ export default abstract class BaseButton extends Sprite implements IPointerListe
 
     get PointerRegistered(): boolean {
         return RunningEngine().Scene === this.Root;
+    }
+
+    constructor(X: number, Y: number, W: number, H: number) {
+        super();
+        this.Position = new ResolutionVector(X, Y);
+        this.Dimension = new ResolutionVector(W, H);
     }
 
     onPointer(e: PointerEvent): boolean {

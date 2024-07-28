@@ -1,7 +1,8 @@
 import { IPointerListener } from "artistic-engine/event";
 import { Sprite } from "artistic-engine/sprite";
-import { RunningEngine } from "../state";
+import { Config, RunningEngine } from "../state";
 import { Vector } from "artistic-engine";
+import { ResolutionVector } from "../helper";
 
 export default abstract class BaseSlider extends Sprite implements IPointerListener {
     private pointerVector = new Vector.Vector2D();
@@ -13,6 +14,11 @@ export default abstract class BaseSlider extends Sprite implements IPointerListe
     public RecieveEventsOutOfBound = true;
 
     public abstract onDraw(context: CanvasRenderingContext2D, delay: number): void;
+
+    constructor() {
+        super();
+        this.Dimension = new ResolutionVector();
+    }
 
     get PointerRegistered(): boolean {
         return RunningEngine().Scene === this.Root;

@@ -1,3 +1,4 @@
+import { Vector } from 'artistic-engine';
 import { applyDisplayConfig, DisplayConfig } from './display';
 // TODO: way to supply local config
 
@@ -12,13 +13,15 @@ export class Config {
 
     public fullscreen = false;
 
-    public resolution = {
-        x: 1920,
-        y: 1080
-    };
+    public resolution = new Vector.Vector2D(1920, 1080);
 
     constructor(config: ConfigFile) {
         applyDisplayConfig(this, config.display);
+    }
+
+    public setResolution(X: number, Y: number) {
+        this.resolution.X = X;
+        this.resolution.Y = Y;
     }
 }
 

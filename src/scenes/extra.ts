@@ -1,7 +1,8 @@
 import { Scene } from 'artistic-engine/sprite';
-import { Config, RunningEngine } from '../state';
+import { RunningEngine } from '../state';
 import { Engine } from 'artistic-engine';
 import { ExtraQuitButton } from '../elements/extra';
+import { ResolutionVector } from '../helper';
 
 class ExtraScene extends Scene {
     private returnToScene: Scene | undefined;
@@ -9,14 +10,13 @@ class ExtraScene extends Scene {
     private quitButton: ExtraQuitButton;
 
     constructor() {
-        const cfg = Config();
-        super({ W: cfg.resolution.x, H: cfg.resolution.y });
-
+        super();
+        this.Dimension = new ResolutionVector(1920, 1080);
         this.quitButton = new ExtraQuitButton();
         const buttons = [this.quitButton];
 
-        this.quitButton.X = 100;
-        this.quitButton.Y = 100;
+        (<ResolutionVector>this.quitButton.Position).baseX = 100;
+        (<ResolutionVector>this.quitButton.Position).baseY = 100;
         
         this.attachChildren(buttons);
         RunningEngine().PointerGroup.registerPointerListener(...buttons);

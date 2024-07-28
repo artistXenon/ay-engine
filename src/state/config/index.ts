@@ -7,6 +7,7 @@ let instance: Config | undefined;
 const getConfig = () => {
     if (instance === undefined) {
         instance = new Config(config);
+        (<any>window).config = instance;
     }
     return instance;
 }

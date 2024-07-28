@@ -8,8 +8,8 @@ export type DisplayConfig = {
 export function applyDisplayConfig(config: Config, displayConfig: DisplayConfig) {
     if (!displayConfig) return;
     const [ x, y ] = displayConfig.resolution;
-    config.resolution.x = x;
-    config.resolution.y = y;
+    config.resolution.X = x;
+    config.resolution.Y = y;
 
     config.fullscreen = displayConfig.fullscreen;
 }

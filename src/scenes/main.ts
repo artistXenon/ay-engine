@@ -1,10 +1,9 @@
 import { Scene } from 'artistic-engine/sprite';
-import { Config, RunningEngine } from '../state';
+import { RunningEngine } from '../state';
 import { Engine } from 'artistic-engine';
 import { MainContinueButton, MainExtraButton, MainLoadButton, MainQuitButton, MainSettingsButton, MainStartButton } from '../elements/main-menu';
-import BaseModal from '../elements/base-modal';
+import { ResolutionVector } from '../helper';
 
-const cfg = Config();
 
 class MainScene extends Scene {
     // Buttons
@@ -22,7 +21,8 @@ class MainScene extends Scene {
     private quitButton: MainQuitButton;
 
     constructor() {
-        super({ W: cfg.resolution.x, H: cfg.resolution.y }); 
+        super(); 
+        this.Dimension = new ResolutionVector(1920, 1080);
         
         this.startButton = new MainStartButton();
         this.continueButton = new MainContinueButton();
@@ -32,23 +32,23 @@ class MainScene extends Scene {
         this.quitButton = new MainQuitButton();
         const buttons = [ this.startButton, this.continueButton, this.loadButton, this.extraButton, this.settingsButton, this.quitButton ];
 
-        this.startButton.X = 100;
-        this.startButton.Y = 100;
-
-        this.continueButton.X = 100;
-        this.continueButton.Y = 250;
+        (<ResolutionVector>this.startButton.Position).baseX = 100;
+        (<ResolutionVector>this.startButton.Position).baseY = 100;
         
-        this.loadButton.X = 100;
-        this.loadButton.Y = 400;
-
-        this.extraButton.X = 100;
-        this.extraButton.Y = 550;
-
-        this.settingsButton.X = 100;
-        this.settingsButton.Y = 700;
+        (<ResolutionVector>this.continueButton.Position).baseX = 100;
+        (<ResolutionVector>this.continueButton.Position).baseY = 250;
         
-        this.quitButton.X = 100;
-        this.quitButton.Y = 850;
+        (<ResolutionVector>this.loadButton.Position).baseX = 100;
+        (<ResolutionVector>this.loadButton.Position).baseY = 400;
+
+        (<ResolutionVector>this.extraButton.Position).baseX = 100;
+        (<ResolutionVector>this.extraButton.Position).baseY = 550;
+
+        (<ResolutionVector>this.settingsButton.Position).baseX = 100;
+        (<ResolutionVector>this.settingsButton.Position).baseY = 700;
+        
+        (<ResolutionVector>this.quitButton.Position).baseX = 100;
+        (<ResolutionVector>this.quitButton.Position).baseY = 850;
 
         this.attachChildren(buttons);
         RunningEngine().PointerGroup.registerPointerListener(...buttons);

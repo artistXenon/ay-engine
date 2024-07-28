@@ -3,12 +3,13 @@ import { Scene } from 'artistic-engine/sprite';
 import { IPointerListener } from 'artistic-engine/event';
 import { Config, RunningEngine } from '../state';
 import { MainScene } from '.';
+import { ResolutionVector } from '../helper';
 
-const cfg = Config();
 
 class SplashScene extends Scene implements IPointerListener {
     constructor() {
-        super({ W: cfg.resolution.x, H: cfg.resolution.y }); // TODO: temporary value
+        super(); 
+        this.Dimension = new ResolutionVector(1920, 1080);
     }
     get PointerRegistered(): boolean {
         return RunningEngine().Scene === this;

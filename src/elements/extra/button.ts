@@ -1,6 +1,8 @@
 import { TextSprite } from "artistic-engine/sprite";
 import BaseButton from "../base-button";
 import { RunningEngine } from "../../state";
+import { ResolutionVector } from "../../helper";
+import { Vector } from "artistic-engine";
 
 export default class ExtraButton extends BaseButton {
     private name;
@@ -12,11 +14,14 @@ export default class ExtraButton extends BaseButton {
     private text: TextSprite;
 
     constructor(name = "", color = 'red') {
-        super({ W: 200, H: 100 });
+        super(0, 0, 200, 100);
         this.name = name;
         this.color = color;
 
-        this.text = new TextSprite({ X: this.W / 2, Y: this.H / 2 });
+        this.text = new TextSprite();
+        const textPosition = new ResolutionVector();
+        textPosition.X = this.W / 2;
+        textPosition.Y = this.H / 2;
         this.text.Property.fill = "white";
         this.text.Text = this.name;
         this.text.Property.textAlign = "center";

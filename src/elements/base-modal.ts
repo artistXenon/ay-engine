@@ -3,6 +3,7 @@ import { Config, RunningEngine } from "../state";
 import BaseButton from "./base-button";
 import { IPointerListener } from "artistic-engine/event";
 import { Vector } from "artistic-engine";
+import { ResolutionVector } from "../helper";
 
 
 export default class BaseModal extends Sprite implements IPointerListener {
@@ -17,8 +18,8 @@ export default class BaseModal extends Sprite implements IPointerListener {
     protected modalCancel: BaseModalButton | undefined;
 
     constructor(title: string, desc: string, onConfirm: (bm: BaseModal) => void, onCancel?: (bm: BaseModal) => void) {
-        const config = Config();
-        super({ W: config.resolution.x, H: config.resolution.y });
+        super();
+        this.Dimension = Config().resolution;
         this.modalBody = new BaseModalBody(title, desc);
         this.modalConfirm = new BaseModalButton(this, onConfirm);
         this.modalBody.attachChildren(this.modalConfirm);
@@ -88,13 +89,10 @@ class BaseModalBody extends Sprite {
     private desc: TextSprite;
 
     constructor(title: string, desc: string) {
-        const { resolution } = Config();
-        super({
-            X: resolution.x * 0.15,
-            Y: resolution.y * 0.15,
-            W: resolution.x * 0.7,
-            H: resolution.y * 0.7
-        });
+        const w = 1920, h = 1080;
+        super();
+        this.Position = new ResolutionVector(w * 0.15, h * 0.15);
+        this.Dimension = new ResolutionVector(w * 0.7, h * 0.7);
 
         this.title = new TextSprite();
         this.desc = new TextSprite();
@@ -144,7 +142,7 @@ class BaseModalButton extends BaseButton {
     // private text: TextSprite;
 
     constructor(baseModal: BaseModal, onClick: (bm: BaseModal) => void, color = 'green') {
-        super({ W: 200, H: 100 });
+        super(0, 0, 200, 100);
         this.modal = baseModal;
         this.onButtonClick = onClick;
         this.color = color;
