@@ -16,10 +16,6 @@ assetManager.load("common", false, () => {
     engine.Scene = splashScene;
     engine.start();
 });
-// on load :
-//      show splash, on click :
-//          read audio assets
-//          show main scene
 
 
 

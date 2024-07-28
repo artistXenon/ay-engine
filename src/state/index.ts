@@ -1,5 +1,6 @@
 import { Config } from './config';
+import { Scenario } from './scenario';
 import AssetManager from './asset';
 import getEngine from './engine';
 
-export { Config, AssetManager, getEngine as RunningEngine };
+export { Config, Scenario, AssetManager, getEngine as RunningEngine };

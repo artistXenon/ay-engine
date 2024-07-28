@@ -10,8 +10,12 @@ class PlayerScene extends Scene {
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
-        context.fillStyle = "black";
+        context.fillStyle = "white";
         context.fillRect(0, 0, this.W, this.H);
+    }
+
+    public open(from: any | undefined ) {
+
     }
 
     onAttachEngine(engine: Engine, previousScene: Scene): void {

@@ -1,3 +1,7 @@
 시나리오:
 scenario-1.json, scenario-2.json
 actions.js : eport methods ran by scenario. parameters to be decided
+
+설정:
+
+

@@ -23,13 +23,14 @@ export default abstract class BaseButton extends Sprite implements IPointerListe
         if (this.Disabled) return true;
     
         const { type, clientX, clientY } = e;
+        const engine = RunningEngine();
         this.pointerVector.X = this.AbsoluteX;
         this.pointerVector.Y = this.AbsoluteY;
-        const { X, Y } = RunningEngine().Camera.apply(this.pointerVector);
+        const { X, Y } = engine.Camera.apply(this.pointerVector);
         const relativeX = clientX - X, relativeY = clientY - Y;        
         this.pointerVector.X = this.W;
         this.pointerVector.Y = this.H;
-        const { X: W, Y: H } = RunningEngine().Camera.apply(this.pointerVector);
+        const { X: W, Y: H } = engine.Camera.apply(this.pointerVector);
         const inBound = relativeX > 0 && relativeX < W && relativeY > 0 && relativeY < H;
     
         if (inBound) {

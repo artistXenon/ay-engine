@@ -15,6 +15,7 @@ class CustomEngine extends Engine {
         super(canvas);
         this.KeyboardGroup = new KeyboardEventGroup(document.body);
         this.PointerGroup = new PointerEventGroup(this);
+        this.PointerGroup.setListenSequenceFirstInFirstTrigger(false);
         this.fontBuilderMap = new Map();
 
         this.KeyboardGroup.registerEvent();

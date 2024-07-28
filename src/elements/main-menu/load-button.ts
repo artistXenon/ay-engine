@@ -1,8 +1,8 @@
 import MainMenuButton from "./button";
 
-export default class ContinueButton extends MainMenuButton {
+export default class LoadButton extends MainMenuButton {
     constructor() {
-        super("이어서", "blue");
+        super("불러오기", "purple");
     }
     
     public onUp(e: PointerEvent): void {
