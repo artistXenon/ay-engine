@@ -1,3 +1,5 @@
+import { SaveLoadScene } from "../../scenes";
+import { RunningEngine } from "../../state";
 import MainMenuButton from "./button";
 
 export default class LoadButton extends MainMenuButton {
@@ -6,6 +8,6 @@ export default class LoadButton extends MainMenuButton {
     }
     
     public onUp(e: PointerEvent): void {
-        console.log("not implemented")
+        RunningEngine().Scene = SaveLoadScene();
     }
 }
