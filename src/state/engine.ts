@@ -13,7 +13,7 @@ class CustomEngine extends Engine {
 
     constructor() {
         super(canvas);
-        this.KeyboardGroup = new KeyboardEventGroup(document.body);
+        this.KeyboardGroup = new KeyboardEventGroup(canvas);
         this.PointerGroup = new PointerEventGroup(this);
         this.PointerGroup.setListenSequenceFirstInFirstTrigger(false);
         this.fontBuilderMap = new Map();
@@ -46,7 +46,7 @@ const getEngine: () => CustomEngine = () => {
             engine.Camera.reset();
             engine.Camera.scale(fitWidth ? innerWidth / cfg.resolution.X : innerHeight / cfg.resolution.Y);
 
-            if (cfg.fullscreen) canvas.requestFullscreen({ navigationUI: "hide" });
+            // if (cfg.fullscreen) canvas.requestFullscreen({ navigationUI: "hide" });
             
             (<any>window).engine = engine;
         };

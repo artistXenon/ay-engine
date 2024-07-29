@@ -27,6 +27,7 @@ export default abstract class BaseButton extends Sprite implements IPointerListe
 
     onPointer(e: PointerEvent): boolean {
         // TODO: engine update - give bound info as parameter
+        // getBoundingClientRect()
         if (this.Disabled) return true;
     
         const { type, clientX, clientY } = e;

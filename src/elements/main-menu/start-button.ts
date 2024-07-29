@@ -6,6 +6,6 @@ export default class StartButton extends MainMenuButton {
     }
     
     public onUp(e: PointerEvent): void {
-        console.log("not implemented")
+        console.log(e)
     }
 }

@@ -1,5 +1,6 @@
 import { Vector } from 'artistic-engine';
 import { applyDisplayConfig, DisplayConfig } from './display';
+import { RunningEngine } from '..';
 // TODO: way to supply local config
 
 type ConfigFile = {
@@ -23,6 +24,11 @@ export class Config {
         this.resolution.X = X;
         this.resolution.Y = Y;
         dispatchEvent(new Event('resize'));
+    }
+    
+    public setFullscreen(fullscreen: boolean) {
+        this.fullscreen = fullscreen;
+        if (fullscreen) RunningEngine().Canvas.requestFullscreen({ navigationUI: "hide" });
     }
 }
 
