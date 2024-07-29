@@ -22,6 +22,8 @@ export default class ExtraButton extends BaseButton {
         const textPosition = new ResolutionVector();
         textPosition.X = this.W / 2;
         textPosition.Y = this.H / 2;
+        this.text.Position = textPosition;
+        new Vector.Vector2D(this.W / 2, this.H / 2);
         this.text.Property.fill = "white";
         this.text.Text = this.name;
         this.text.Property.textAlign = "center";

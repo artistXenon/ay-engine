@@ -22,6 +22,7 @@ export class Config {
     public setResolution(X: number, Y: number) {
         this.resolution.X = X;
         this.resolution.Y = Y;
+        dispatchEvent(new Event('resize'));
     }
 }
 
