@@ -11,33 +11,17 @@ export default abstract class BaseSlider extends Sprite implements IPointerListe
 
     private downed = false;
 
-    public RecieveEventsOutOfBound = true;
-
     public abstract onDraw(context: CanvasRenderingContext2D, delay: number): void;
 
     constructor() {
         super();
         this.Dimension = new ResolutionVector();
     }
+    PointerRegistered?: boolean | undefined;
 
-    get PointerRegistered(): boolean {
-        return RunningEngine().Scene === this.Root;
-    }
-
-    onPointer(e: PointerEvent): boolean {
-        // TODO: engine update - give bound info as parameter
+    onPointer(type: string, localX: number, localY: number, inBound: boolean, e: PointerEvent): boolean {
         if (this.Disabled) return true;
-    
-        const { type, clientX, clientY } = e;
-        this.pointerVector.X = this.AbsoluteX;
-        this.pointerVector.Y = this.AbsoluteY;
-        const { X, Y } = RunningEngine().Camera.apply(this.pointerVector);
-        const relativeX = clientX - X, relativeY = clientY - Y;        
-        this.pointerVector.X = this.W;
-        this.pointerVector.Y = this.H;
-        const { X: W, Y: H } = RunningEngine().Camera.apply(this.pointerVector);
-        const inBound = relativeX > 0 && relativeX < W && relativeY > 0 && relativeY < H;
-    
+
         if (inBound) {
             if (type === "pointerdown") {
                 this.downed = true;

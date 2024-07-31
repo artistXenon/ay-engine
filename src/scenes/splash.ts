@@ -11,10 +11,6 @@ class SplashScene extends Scene implements IPointerListener {
         super(); 
         this.Dimension = new ResolutionVector(1920, 1080);
     }
-    get PointerRegistered(): boolean {
-        return RunningEngine().Scene === this;
-    }
-    public  RecieveEventsOutOfBound = false;
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
         context.fillStyle = "white";
@@ -35,9 +31,9 @@ class SplashScene extends Scene implements IPointerListener {
         // }, 2000);
     }
     
-    public onPointer(e: PointerEvent): boolean {
+    onPointer(type: string, localX: number, localY: number, inBound: boolean, e: PointerEvent): boolean {
         // throw new Error('Method not implemented.');
-        if (e.type === "pointerdown") {
+        if (type === "pointerdown") {
             this.skip();
         }
 

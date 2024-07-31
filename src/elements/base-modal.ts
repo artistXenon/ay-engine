@@ -2,15 +2,10 @@ import { Sprite, TextSprite } from "artistic-engine/sprite";
 import { Config, RunningEngine } from "../state";
 import BaseButton from "./base-button";
 import { IPointerListener } from "artistic-engine/event";
-import { Vector } from "artistic-engine";
 import { ResolutionVector } from "../helper";
 
 
 export default class BaseModal extends Sprite implements IPointerListener {
-    private pointerVector = new Vector.Vector2D();
-
-    public RecieveEventsOutOfBound = false;
-
     protected modalBody: BaseModalBody;
 
     protected modalConfirm: BaseModalButton;
@@ -38,9 +33,6 @@ export default class BaseModal extends Sprite implements IPointerListener {
         this.attachChildren(this.modalBody);
 
     }
-    get PointerRegistered(): boolean {
-        return this.Parent != null;
-    }
 
     onDraw(context: CanvasRenderingContext2D, delay: number): void {
         context.globalAlpha = 0.5;
@@ -49,20 +41,25 @@ export default class BaseModal extends Sprite implements IPointerListener {
         context.globalAlpha = 1;
     }
 
-    onPointer(e: PointerEvent): boolean {
-        const { type, clientX, clientY } = e;
-        const engine = RunningEngine();
-        this.pointerVector.X = this.modalBody.AbsoluteX;
-        this.pointerVector.Y = this.modalBody.AbsoluteY;
-        const { X, Y } = engine.Camera.apply(this.pointerVector);
-        const relativeX = clientX - X, relativeY = clientY - Y;
-        this.pointerVector.X = this.modalBody.W;
-        this.pointerVector.Y = this.modalBody.H;
-        const { X: W, Y: H } = engine.Camera.apply(this.pointerVector);
-        const inBound = relativeX > 0 && relativeX < W && relativeY > 0 && relativeY < H;
-        if (inBound) {
-            if (!this.modalConfirm.onPointer(e) && this.modalCancel !== undefined) {
-                this.modalCancel.onPointer(e);
+    onPointer(type: string, localX: number, localY: number, inBound: boolean, e: PointerEvent): boolean {
+        localX -= this.modalBody.X;
+        localY -= this.modalBody.Y;
+        const inBodyBound = localX > 0 && localY > 0 && 
+            localX < this.modalBody.W && localY < this.modalBody.H;
+        if (inBodyBound) { // TODO: for buttons
+            const confirmX = localX - this.modalConfirm.X, confirmY = localY - this.modalConfirm.Y;
+            const inConfirm = confirmX > 0 && 
+                confirmY > 0 && 
+                confirmX < this.modalConfirm.W && 
+                confirmY < this.modalConfirm.H;
+            if (inConfirm) this.modalConfirm.onPointer(type, confirmX, confirmY, inConfirm, e);
+            if (this.modalCancel) {
+                const cancelX = localX - this.modalCancel.X, cancelY = localY - this.modalCancel.Y;
+                const inCancel = cancelX > 0 && 
+                    cancelY > 0 && 
+                    cancelX < this.modalCancel.W && 
+                    cancelY < this.modalCancel.H;
+                if (inCancel) this.modalCancel.onPointer(type, cancelX, cancelY, inCancel, e);
             }
         } else if (type === 'pointerdown') {
             this.close();

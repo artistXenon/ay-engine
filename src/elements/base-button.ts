@@ -1,23 +1,15 @@
 import { IPointerListener } from "artistic-engine/event";
 import { Sprite } from "artistic-engine/sprite";
 import { RunningEngine } from "../state";
-import { Vector } from "artistic-engine";
 import { ResolutionVector } from "../helper";
 
 export default abstract class BaseButton extends Sprite implements IPointerListener {
-    private pointerVector = new Vector.Vector2D();
 
     public Disabled = false;
 
     private downed = false;
 
-    public RecieveEventsOutOfBound = true;
-
     public abstract onDraw(context: CanvasRenderingContext2D, delay: number): void;
-
-    get PointerRegistered(): boolean {
-        return RunningEngine().Scene === this.Root;
-    }
 
     constructor(X: number, Y: number, W: number, H: number) {
         super();
@@ -25,22 +17,11 @@ export default abstract class BaseButton extends Sprite implements IPointerListe
         this.Dimension = new ResolutionVector(W, H);
     }
 
-    onPointer(e: PointerEvent): boolean {
+    onPointer(type: string, localX: number, localY: number, inBound: boolean, e: PointerEvent): boolean {
         // TODO: engine update - give bound info as parameter
         // getBoundingClientRect()
         if (this.Disabled) return true;
-    
-        const { type, clientX, clientY } = e;
-        const engine = RunningEngine();
-        this.pointerVector.X = this.AbsoluteX;
-        this.pointerVector.Y = this.AbsoluteY;
-        const { X, Y } = engine.Camera.apply(this.pointerVector);
-        const relativeX = clientX - X, relativeY = clientY - Y;        
-        this.pointerVector.X = this.W;
-        this.pointerVector.Y = this.H;
-        const { X: W, Y: H } = engine.Camera.apply(this.pointerVector);
-        const inBound = relativeX > 0 && relativeX < W && relativeY > 0 && relativeY < H;
-    
+        
         if (inBound) {
             if (type === "pointerdown") {
                 this.downed = true;
