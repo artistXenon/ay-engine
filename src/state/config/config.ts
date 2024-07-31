@@ -28,7 +28,10 @@ export class Config {
     
     public setFullscreen(fullscreen: boolean) {
         this.fullscreen = fullscreen;
-        if (fullscreen) RunningEngine().Canvas.requestFullscreen({ navigationUI: "hide" });
+
+        if (fullscreen) {
+            document.querySelector('#app')!.requestFullscreen({ navigationUI: "hide" });
+        }
     }
 }
 
