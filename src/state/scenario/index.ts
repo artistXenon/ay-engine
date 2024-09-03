@@ -1,4 +1,4 @@
-import { Scenario } from "./scenario";
+import Scenario from "./scenario";
 
 let instance: Scenario | undefined;
 

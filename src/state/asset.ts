@@ -1,5 +1,6 @@
 // import ~~ from './~~';
 import GowunBatang from "/GowunBatang-Regular.woff";
+import logg from "/pfp.png";
 import { AssetLoader, Bitmap } from "artistic-engine";
 
 type AssetCart = {
@@ -12,7 +13,7 @@ type AssetCart = {
 const assetMap: Map<string, AssetCart> = new Map();
 assetMap
     .set("common", {
-        images: [], // [ name, file?link? ]
+        images: [["logg", logg]], // [ name, file?link? ]
         musics: [],
         sfxs: [],
         fonts: [["GowunBatang", `url(${GowunBatang})`]],
@@ -40,7 +41,7 @@ class AssetManager {
         const { images, musics, sfxs, fonts } = <AssetCart>assetMap.get(category);
         if (images) {
             for (const [name, source] of images) {
-                this.assetLoader.addImages(name, source);
+                this.assetLoader.addImage(name, source);
             }
         }
         if (fonts) {

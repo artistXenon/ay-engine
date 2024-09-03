@@ -1,15 +1,16 @@
 import { Scene } from 'artistic-engine/sprite';
 import { Engine } from 'artistic-engine';
 import { ResolutionVector } from '../helper';
+import Scenario from '../state/scenario/scenario';
 
 class PlayerScene extends Scene {
-    constructor() {
+    constructor(scenario: Scenario) {
         super(); // TODO: temporary value
         this.Dimension = new ResolutionVector(1920, 1080);
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
-        context.fillStyle = "white";
+        context.fillStyle = "black";
         context.fillRect(0, 0, this.W, this.H);
     }
 
@@ -24,9 +25,9 @@ class PlayerScene extends Scene {
 
 let playerScene: PlayerScene;
 
-const getPlayerScene = () => {
+const getPlayerScene = (scenario: Scenario) => {
     if (playerScene === undefined) {
-        playerScene = new PlayerScene();
+        playerScene = new PlayerScene(scenario);
     }
     return playerScene;
 };

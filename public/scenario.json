@@ -1,0 +1,16 @@
+[
+    {
+        "meta": {
+            "assets": []
+        },
+        "scenario": [
+            {
+                "type": "speak",
+                "beforeBody": ["", ""],
+                "afterBody": ["", ""],
+                "speaker": "재원쿤", 
+                "line": "그치만 오니장 스키슈끼 다이슛키ㅡ☆"
+            }
+        ]
+    }
+]

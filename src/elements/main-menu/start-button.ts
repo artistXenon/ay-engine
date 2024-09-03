@@ -1,3 +1,5 @@
+import { PlayerScene } from "../../scenes";
+import { RunningEngine, Scenario } from "../../state";
 import MainMenuButton from "./button";
 
 export default class StartButton extends MainMenuButton {
@@ -6,6 +8,6 @@ export default class StartButton extends MainMenuButton {
     }
     
     public onUp(e: PointerEvent): void {
-        console.log(e)
+        RunningEngine().Scene = PlayerScene(Scenario());
     }
 }
