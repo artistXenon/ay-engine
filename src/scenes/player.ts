@@ -1,7 +1,7 @@
-import { Scene } from 'artistic-engine/sprite';
-import { Engine } from 'artistic-engine';
-import { ResolutionVector } from '../helper';
-import Scenario from '../state/scenario/scenario';
+import { Scene } from "artistic-engine/sprite";
+import { Engine } from "artistic-engine";
+import { ResolutionVector } from "../helper";
+import Scenario from "../state/scenario/scenario";
 
 class PlayerScene extends Scene {
     constructor(scenario: Scenario) {
@@ -14,13 +14,9 @@ class PlayerScene extends Scene {
         context.fillRect(0, 0, this.W, this.H);
     }
 
-    public open(from: any | undefined ) {
+    public open(from: any | undefined) {}
 
-    }
-
-    onAttachEngine(engine: Engine, previousScene: Scene): void {
-
-    }
+    onAttachEngine(engine: Engine, previousScene: Scene): void {}
 }
 
 let playerScene: PlayerScene;

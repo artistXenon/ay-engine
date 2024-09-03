@@ -1,42 +1,40 @@
 import { StoryChapter, StoryData } from "./local-types";
 
-
 export default class Scenario {
     public chapters: StoryChapter[] = [];
 
-    private directives: any;
-
     public chapterIndex = 0;
-    
+
     public sceneIndex = 0;
 
+    private directives: any;
 
     constructor(path: string, savePath: string) {
         // get local save head
 
-        const scenarios = ["/scenario.json",];
+        const scenarios = ["/scenario.json"];
 
         this.chapters.length = scenarios.length;
 
         for (const sci in scenarios) {
             fetch(scenarios[sci])
                 .then((response) => response.json())
-                .then((scenario) => this.chapters[sci] = scenario);
+                .then((scenario) => (this.chapters[sci] = scenario));
         }
 
         fetch("/directives.js")
             .then((response) => response.text())
-            .then((directives) => this.directives = eval(directives));
+            .then((directives) => (this.directives = eval(directives)));
     }
 
-    public Log() {
-
-    }
+    public Log() {}
 
     public Scene(chp: number = -1, scn: number = -1): StoryData | undefined {
         if (
-            chp !== -1 && scn !== -1 &&
-            this.chapters.length > chp && this.chapters[chp].scenario.length > scn
+            chp !== -1 &&
+            scn !== -1 &&
+            this.chapters.length > chp &&
+            this.chapters[chp].scenario.length > scn
         ) {
             // jump
             this.chapterIndex = chp;
@@ -52,12 +50,11 @@ export default class Scenario {
             } else this.sceneIndex++;
         }
 
-        return this
-            .chapters[this.chapterIndex]
-            .scenario[this.sceneIndex];
+        return this.chapters[this.chapterIndex].scenario[this.sceneIndex];
     }
 
-    public resolveDirectives(directives: string[], args: any[]) { // TODO
+    public resolveDirectives(directives: string[], args: any[]) {
+        // TODO
         for (const directive of directives) {
             // parse to method and arguments
             //      parse fail > warn; continue;

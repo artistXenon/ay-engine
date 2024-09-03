@@ -6,7 +6,7 @@ export default class LoadButton extends MainMenuButton {
     constructor() {
         super("불러오기", "purple");
     }
-    
+
     public onUp(e: PointerEvent): void {
         RunningEngine().Scene = SaveLoadScene();
     }

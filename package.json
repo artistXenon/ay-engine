@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
-
+    "preview": "vite preview",
+    "lint": "eslint -c eslint.config.js"
   },
   "repository": {
     "type": "git",
@@ -27,9 +27,15 @@
   },
   "homepage": "https://github.com/artistXenon/ay-engine#readme",
   "dependencies": {
-    "artistic-engine": "^1.4.4"
+    "artistic-engine": "^1.4.4",
+    "typescript-eslint": "^8.4.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@typescript-eslint/parser": "^8.4.0",
+    "eslint": "^9.9.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
   }

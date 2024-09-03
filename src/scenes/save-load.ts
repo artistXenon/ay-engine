@@ -1,8 +1,8 @@
-import { Scene } from 'artistic-engine/sprite';
-import { RunningEngine } from '../state';
-import { Engine } from 'artistic-engine';
-import { SaveLoadQuitButton } from '../elements/save-load';
-import { ResolutionVector } from '../helper';
+import { Scene } from "artistic-engine/sprite";
+import { RunningEngine } from "../state";
+import { Engine } from "artistic-engine";
+import { SaveLoadQuitButton } from "../elements/save-load";
+import { ResolutionVector } from "../helper";
 
 class SaveLoadScene extends Scene {
     private returnToScene: Scene | undefined;
@@ -17,7 +17,7 @@ class SaveLoadScene extends Scene {
 
         (<ResolutionVector>this.quitButton.Position).baseX = 100;
         (<ResolutionVector>this.quitButton.Position).baseY = 100;
-        
+
         this.attachChildren(buttons);
         RunningEngine().PointerGroup.registerPointerListener(...buttons);
     }
@@ -31,7 +31,6 @@ class SaveLoadScene extends Scene {
         RunningEngine().Scene = this.returnToScene;
     }
 
-    
     onAttachEngine(engine: Engine, previousScene: Scene): void {
         this.returnToScene = previousScene;
     }
@@ -47,4 +46,3 @@ const getSaveLoadScene = () => {
 };
 
 export default getSaveLoadScene;
-

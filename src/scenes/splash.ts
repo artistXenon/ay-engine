@@ -1,14 +1,13 @@
-import { Engine } from 'artistic-engine';
-import { Scene } from 'artistic-engine/sprite';
-import { IPointerListener } from 'artistic-engine/event';
-import { Config, RunningEngine } from '../state';
-import { MainScene } from '.';
-import { ResolutionVector } from '../helper';
-
+import { Engine } from "artistic-engine";
+import { Scene } from "artistic-engine/sprite";
+import { IPointerListener } from "artistic-engine/event";
+import { Config, RunningEngine } from "../state";
+import { MainScene } from ".";
+import { ResolutionVector } from "../helper";
 
 class SplashScene extends Scene implements IPointerListener {
     constructor() {
-        super(); 
+        super();
         this.Dimension = new ResolutionVector(1920, 1080);
     }
 
@@ -17,27 +16,33 @@ class SplashScene extends Scene implements IPointerListener {
         context.fillRect(0, 0, this.W, this.H);
     }
 
-    private skip() {
-        const engine = RunningEngine();
-        if (engine.Scene !== this) return;
-        engine.Scene = MainScene();
-        engine.PointerGroup.unregisterPointerListener(this);
-    }
-
     public onAttachEngine(engine: Engine, previousScene: Scene): void {
         // this is auto skip but require click
         // setTimeout(() => {
         //     this.skip();
         // }, 2000);
     }
-    
-    onPointer(type: string, localX: number, localY: number, inBound: boolean, e: PointerEvent): boolean {
+
+    onPointer(
+        type: string,
+        localX: number,
+        localY: number,
+        inBound: boolean,
+        e: PointerEvent,
+    ): boolean {
         // throw new Error('Method not implemented.');
         if (type === "pointerdown") {
             this.skip();
         }
 
         return true;
+    }
+
+    private skip() {
+        const engine = RunningEngine();
+        if (engine.Scene !== this) return;
+        engine.Scene = MainScene();
+        engine.PointerGroup.unregisterPointerListener(this);
     }
 }
 

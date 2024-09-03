@@ -3,6 +3,13 @@ import MainScene from "./main";
 import PlayerScene from "./player";
 import SaveLoadScene from "./save-load";
 import ExtraScene from "./extra";
-import SettingsScene from './settings';
+import SettingsScene from "./settings";
 
-export { SplashScene, MainScene, PlayerScene, SaveLoadScene, ExtraScene, SettingsScene };
+export {
+    SplashScene,
+    MainScene,
+    PlayerScene,
+    SaveLoadScene,
+    ExtraScene,
+    SettingsScene,
+};

@@ -1,8 +1,8 @@
-import { Scene } from 'artistic-engine/sprite';
-import { RunningEngine } from '../state';
-import { Engine } from 'artistic-engine';
-import { SettingsQuitButton } from '../elements/settings';
-import { ResolutionVector } from '../helper';
+import { Scene } from "artistic-engine/sprite";
+import { RunningEngine } from "../state";
+import { Engine } from "artistic-engine";
+import { SettingsQuitButton } from "../elements/settings";
+import { ResolutionVector } from "../helper";
 
 class SettingsScene extends Scene {
     private returnToScene: Scene | undefined;
@@ -18,7 +18,7 @@ class SettingsScene extends Scene {
 
         (<ResolutionVector>this.quitButton.Position).baseX = 100;
         (<ResolutionVector>this.quitButton.Position).baseY = 100;
-        
+
         this.attachChildren(buttons);
         RunningEngine().PointerGroup.registerPointerListener(...buttons);
     }
@@ -32,7 +32,6 @@ class SettingsScene extends Scene {
         RunningEngine().Scene = this.returnToScene;
     }
 
-    
     onAttachEngine(engine: Engine, previousScene: Scene): void {
         this.returnToScene = previousScene;
     }

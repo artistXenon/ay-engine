@@ -13,7 +13,7 @@ export default class SaveLoadButton extends BaseButton {
 
     private text: TextSprite;
 
-    constructor(name = "", color = 'red') {
+    constructor(name = "", color = "red") {
         super(0, 0, 200, 100);
         this.name = name;
         this.color = color;
@@ -32,22 +32,19 @@ export default class SaveLoadButton extends BaseButton {
         if (fontBuilder) {
             this.text.Property.font = fontBuilder.setSize("30px").toString();
         }
-        
+
         this.attachChildren(this.text);
     }
-    
+
     public onDraw(context: CanvasRenderingContext2D, delay: number): void {
         context.fillStyle = this.color;
         context.fillRect(0, 0, this.W, this.H);
     }
 
-    public onDown(e: PointerEvent): void {
-    }
+    public onDown(e: PointerEvent): void {}
     public onUp(e: PointerEvent): void {
         console.log("CLICKED OMG");
     }
-    public onHover(e: PointerEvent): void {
-    }
-    public onDrop(e: PointerEvent): void {
-    }
+    public onHover(e: PointerEvent): void {}
+    public onDrop(e: PointerEvent): void {}
 }

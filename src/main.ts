@@ -1,7 +1,6 @@
-import { SplashScene } from './scenes';
-import { AssetManager, Config, RunningEngine } from './state';
-import './style.css'
-
+import { SplashScene } from "./scenes";
+import { AssetManager, Config, RunningEngine } from "./state";
+import "./style.css";
 
 // init config file
 const config = Config();
@@ -16,7 +15,3 @@ assetManager.load("common", false, () => {
     engine.Scene = splashScene;
     engine.start();
 });
-
-
-
-

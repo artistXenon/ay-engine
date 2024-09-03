@@ -15,10 +15,15 @@ export default class PlayerDialog extends Sprite implements IPointerListener {
         this.speaker = new DialogSpeaker();
         this.line = new DialogLine();
         this.next = new DialogCursor();
-
     }
 
-    onPointer(type: string, localX: number, localY: number, inBound: boolean, e: PointerEvent): boolean {
+    onPointer(
+        type: string,
+        localX: number,
+        localY: number,
+        inBound: boolean,
+        e: PointerEvent,
+    ): boolean {
         //  Stub
         return true;
     }
@@ -26,23 +31,16 @@ export default class PlayerDialog extends Sprite implements IPointerListener {
     onDraw(context: CanvasRenderingContext2D, delay: number): void {
         // Stub
     }
-
 }
 
 class DialogSpeaker extends Sprite {
-    onDraw(context: CanvasRenderingContext2D, delay: number): void {
-    }
+    onDraw(context: CanvasRenderingContext2D, delay: number): void {}
 }
 
 class DialogLine extends Sprite {
-    onDraw(context: CanvasRenderingContext2D, delay: number): void {
-        
-    }
-
+    onDraw(context: CanvasRenderingContext2D, delay: number): void {}
 }
 
 class DialogCursor extends Sprite {
-    onDraw(context: CanvasRenderingContext2D, delay: number): void {
-
-    }
+    onDraw(context: CanvasRenderingContext2D, delay: number): void {}
 }

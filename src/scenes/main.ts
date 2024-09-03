@@ -1,9 +1,15 @@
-import { Scene } from 'artistic-engine/sprite';
-import { RunningEngine } from '../state';
-import { Engine } from 'artistic-engine';
-import { MainContinueButton, MainExtraButton, MainLoadButton, MainQuitButton, MainSettingsButton, MainStartButton } from '../elements/main-menu';
-import { ResolutionVector } from '../helper';
-
+import { Scene } from "artistic-engine/sprite";
+import { RunningEngine } from "../state";
+import { Engine } from "artistic-engine";
+import {
+    MainContinueButton,
+    MainExtraButton,
+    MainLoadButton,
+    MainQuitButton,
+    MainSettingsButton,
+    MainStartButton,
+} from "../elements/main-menu";
+import { ResolutionVector } from "../helper";
 
 class MainScene extends Scene {
     // Buttons
@@ -21,23 +27,30 @@ class MainScene extends Scene {
     private quitButton: MainQuitButton;
 
     constructor() {
-        super(); 
+        super();
         this.Dimension = new ResolutionVector(1920, 1080);
-        
+
         this.startButton = new MainStartButton();
         this.continueButton = new MainContinueButton();
         this.loadButton = new MainLoadButton();
         this.extraButton = new MainExtraButton();
         this.settingsButton = new MainSettingsButton();
         this.quitButton = new MainQuitButton();
-        const buttons = [ this.startButton, this.continueButton, this.loadButton, this.extraButton, this.settingsButton, this.quitButton ];
+        const buttons = [
+            this.startButton,
+            this.continueButton,
+            this.loadButton,
+            this.extraButton,
+            this.settingsButton,
+            this.quitButton,
+        ];
 
         (<ResolutionVector>this.startButton.Position).baseX = 100;
         (<ResolutionVector>this.startButton.Position).baseY = 100;
-        
+
         (<ResolutionVector>this.continueButton.Position).baseX = 100;
         (<ResolutionVector>this.continueButton.Position).baseY = 250;
-        
+
         (<ResolutionVector>this.loadButton.Position).baseX = 100;
         (<ResolutionVector>this.loadButton.Position).baseY = 400;
 
@@ -46,7 +59,7 @@ class MainScene extends Scene {
 
         (<ResolutionVector>this.settingsButton.Position).baseX = 100;
         (<ResolutionVector>this.settingsButton.Position).baseY = 700;
-        
+
         (<ResolutionVector>this.quitButton.Position).baseX = 100;
         (<ResolutionVector>this.quitButton.Position).baseY = 850;
 
@@ -59,9 +72,7 @@ class MainScene extends Scene {
         context.fillRect(0, 0, this.W, this.H);
     }
 
-    onAttachEngine(engine: Engine, previousScene: Scene): void {
-
-    }
+    onAttachEngine(engine: Engine, previousScene: Scene): void {}
 }
 
 let mainScene: MainScene;

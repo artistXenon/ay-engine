@@ -4,7 +4,6 @@ import BaseButton from "./base-button";
 import { IPointerListener } from "artistic-engine/event";
 import { ResolutionVector } from "../helper";
 
-
 export default class BaseModal extends Sprite implements IPointerListener {
     protected modalBody: BaseModalBody;
 
@@ -12,7 +11,12 @@ export default class BaseModal extends Sprite implements IPointerListener {
 
     protected modalCancel: BaseModalButton | undefined;
 
-    constructor(title: string, desc: string, onConfirm: (bm: BaseModal) => void, onCancel?: (bm: BaseModal) => void) {
+    constructor(
+        title: string,
+        desc: string,
+        onConfirm: (bm: BaseModal) => void,
+        onCancel?: (bm: BaseModal) => void,
+    ) {
         super();
         this.Dimension = Config().resolution;
         this.modalBody = new BaseModalBody(title, desc);
@@ -23,51 +27,80 @@ export default class BaseModal extends Sprite implements IPointerListener {
         // TODO: set position
         const canCancel = onCancel !== undefined;
         if (canCancel) {
-            this.modalCancel = new BaseModalButton(this, onCancel, 'red');
+            this.modalCancel = new BaseModalButton(this, onCancel, "red");
             this.modalBody.attachChildren(this.modalCancel);
-            this.modalConfirm.X = (this.modalBody.W / 2 - this.modalConfirm.W) / 2;
-            this.modalCancel.X = (this.modalBody.W * 3 / 2 - this.modalConfirm.W) / 2;
+            this.modalConfirm.X =
+                (this.modalBody.W / 2 - this.modalConfirm.W) / 2;
+            this.modalCancel.X =
+                ((this.modalBody.W * 3) / 2 - this.modalConfirm.W) / 2;
             this.modalCancel.Y = this.modalBody.H - this.modalConfirm.H - 40;
             // set potision
         }
         this.attachChildren(this.modalBody);
-
     }
 
     onDraw(context: CanvasRenderingContext2D, delay: number): void {
         context.globalAlpha = 0.5;
-        context.fillStyle = 'white';
+        context.fillStyle = "white";
         context.fillRect(0, 0, this.W, this.H);
         context.globalAlpha = 1;
     }
 
-    onPointer(type: string, localX: number, localY: number, inBound: boolean, e: PointerEvent): boolean {
+    onPointer(
+        type: string,
+        localX: number,
+        localY: number,
+        inBound: boolean,
+        e: PointerEvent,
+    ): boolean {
         localX -= this.modalBody.X;
         localY -= this.modalBody.Y;
-        const inBodyBound = localX > 0 && localY > 0 && 
-            localX < this.modalBody.W && localY < this.modalBody.H;
-        if (inBodyBound) { // TODO: for buttons
-            const confirmX = localX - this.modalConfirm.X, confirmY = localY - this.modalConfirm.Y;
-            const inConfirm = confirmX > 0 && 
-                confirmY > 0 && 
-                confirmX < this.modalConfirm.W && 
+        const inBodyBound =
+            localX > 0 &&
+            localY > 0 &&
+            localX < this.modalBody.W &&
+            localY < this.modalBody.H;
+        if (inBodyBound) {
+            // TODO: for buttons
+            const confirmX = localX - this.modalConfirm.X,
+                confirmY = localY - this.modalConfirm.Y;
+            const inConfirm =
+                confirmX > 0 &&
+                confirmY > 0 &&
+                confirmX < this.modalConfirm.W &&
                 confirmY < this.modalConfirm.H;
-            if (inConfirm) this.modalConfirm.onPointer(type, confirmX, confirmY, inConfirm, e);
+            if (inConfirm)
+                this.modalConfirm.onPointer(
+                    type,
+                    confirmX,
+                    confirmY,
+                    inConfirm,
+                    e,
+                );
             if (this.modalCancel) {
-                const cancelX = localX - this.modalCancel.X, cancelY = localY - this.modalCancel.Y;
-                const inCancel = cancelX > 0 && 
-                    cancelY > 0 && 
-                    cancelX < this.modalCancel.W && 
+                const cancelX = localX - this.modalCancel.X,
+                    cancelY = localY - this.modalCancel.Y;
+                const inCancel =
+                    cancelX > 0 &&
+                    cancelY > 0 &&
+                    cancelX < this.modalCancel.W &&
                     cancelY < this.modalCancel.H;
-                if (inCancel) this.modalCancel.onPointer(type, cancelX, cancelY, inCancel, e);
+                if (inCancel)
+                    this.modalCancel.onPointer(
+                        type,
+                        cancelX,
+                        cancelY,
+                        inCancel,
+                        e,
+                    );
             }
-        } else if (type === 'pointerdown') {
+        } else if (type === "pointerdown") {
             this.close();
         }
 
         // if (out of body)
         // close modal
-        // else 
+        // else
         // call on buttons
         return true;
     }
@@ -76,9 +109,7 @@ export default class BaseModal extends Sprite implements IPointerListener {
         RunningEngine().PointerGroup.unregisterPointerListener(this);
         this.setParent(null);
     }
-
 }
-
 
 class BaseModalBody extends Sprite {
     private title: TextSprite;
@@ -86,7 +117,8 @@ class BaseModalBody extends Sprite {
     private desc: TextSprite;
 
     constructor(title: string, desc: string) {
-        const w = 1920, h = 1080;
+        const w = 1920,
+            h = 1080;
         super();
         this.Position = new ResolutionVector(w * 0.15, h * 0.15);
         this.Dimension = new ResolutionVector(w * 0.7, h * 0.7);
@@ -100,7 +132,7 @@ class BaseModalBody extends Sprite {
         this.title.Property.fill = "black";
         this.title.Property.textAlign = "left";
         this.title.Property.textBaseLine = "top";
-        
+
         this.desc.Text = desc;
         this.desc.X = 40;
         this.desc.Y = 120;
@@ -115,17 +147,12 @@ class BaseModalBody extends Sprite {
         }
 
         this.attachChildren([this.title, this.desc]);
-
-
-
     }
     onDraw(context: CanvasRenderingContext2D, delay: number): void {
         context.fillStyle = "white";
         context.fillRect(0, 0, this.W, this.H);
     }
-
 }
-
 
 class BaseModalButton extends BaseButton {
     private modal: BaseModal;
@@ -138,7 +165,11 @@ class BaseModalButton extends BaseButton {
 
     // private text: TextSprite;
 
-    constructor(baseModal: BaseModal, onClick: (bm: BaseModal) => void, color = 'green') {
+    constructor(
+        baseModal: BaseModal,
+        onClick: (bm: BaseModal) => void,
+        color = "green",
+    ) {
         super(0, 0, 200, 100);
         this.modal = baseModal;
         this.onButtonClick = onClick;
@@ -153,22 +184,18 @@ class BaseModalButton extends BaseButton {
         // if (fontBuilder) {
         //     this.text.Property.font = fontBuilder.setSize("30px").toString();
         // }
-        
         // this.attachChildren(this.text);
     }
-    
+
     public onDraw(context: CanvasRenderingContext2D, delay: number): void {
         context.fillStyle = this.color;
         context.fillRect(0, 0, this.W, this.H);
     }
 
-    public onDown(e: PointerEvent): void {
-    }
+    public onDown(e: PointerEvent): void {}
     public onUp(e: PointerEvent): void {
         this.onButtonClick(this.modal);
     }
-    public onHover(e: PointerEvent): void {
-    }
-    public onDrop(e: PointerEvent): void {
-    }
+    public onHover(e: PointerEvent): void {}
+    public onDrop(e: PointerEvent): void {}
 }

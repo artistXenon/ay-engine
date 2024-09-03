@@ -6,7 +6,7 @@ export default class QuitButton extends ExtraButton {
     constructor() {
         super("나가기");
     }
-    
+
     public onUp(e: PointerEvent): void {
         RunningEngine().Scene = MainScene();
     }

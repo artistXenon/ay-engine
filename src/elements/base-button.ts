@@ -3,13 +3,13 @@ import { Sprite } from "artistic-engine/sprite";
 import { RunningEngine } from "../state";
 import { ResolutionVector } from "../helper";
 
-export default abstract class BaseButton extends Sprite implements IPointerListener {
-
+export default abstract class BaseButton
+    extends Sprite
+    implements IPointerListener
+{
     public Disabled = false;
 
     private downed = false;
-
-    public abstract onDraw(context: CanvasRenderingContext2D, delay: number): void;
 
     constructor(X: number, Y: number, W: number, H: number) {
         super();
@@ -17,11 +17,17 @@ export default abstract class BaseButton extends Sprite implements IPointerListe
         this.Dimension = new ResolutionVector(W, H);
     }
 
-    onPointer(type: string, localX: number, localY: number, inBound: boolean, e: PointerEvent): boolean {
+    onPointer(
+        type: string,
+        localX: number,
+        localY: number,
+        inBound: boolean,
+        e: PointerEvent,
+    ): boolean {
         // TODO: engine update - give bound info as parameter
         // getBoundingClientRect()
         if (this.Disabled) return true;
-        
+
         if (inBound) {
             if (type === "pointerdown") {
                 this.downed = true;
@@ -29,7 +35,8 @@ export default abstract class BaseButton extends Sprite implements IPointerListe
             } else if (type === "pointerup" && this.downed) {
                 this.downed = false;
                 this.onUp(e);
-            } else if (type === "pointermove") { // pointerover, pointerenter
+            } else if (type === "pointermove") {
+                // pointerover, pointerenter
                 this.onHover(e);
             }
             return true;
@@ -42,9 +49,13 @@ export default abstract class BaseButton extends Sprite implements IPointerListe
         }
     }
 
+    public abstract onDraw(
+        context: CanvasRenderingContext2D,
+        delay: number,
+    ): void;
+
     public abstract onDown(e: PointerEvent): void;
     public abstract onUp(e: PointerEvent): void;
     public abstract onHover(e: PointerEvent): void;
     public abstract onDrop(e: PointerEvent): void;
-
 }

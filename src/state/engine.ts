@@ -2,7 +2,7 @@ import { Engine, FontBuilder } from "artistic-engine";
 import { KeyboardEventGroup, PointerEventGroup } from "artistic-engine/event";
 import { Config } from ".";
 
-const canvas = document.querySelector<HTMLCanvasElement>('#main')!;
+const canvas = document.querySelector<HTMLCanvasElement>("#main")!;
 
 class CustomEngine extends Engine {
     public KeyboardGroup: KeyboardEventGroup;
@@ -32,7 +32,7 @@ class CustomEngine extends Engine {
     }
 }
 
-let engine: CustomEngine
+let engine: CustomEngine;
 const getEngine: () => CustomEngine = () => {
     if (engine === undefined) {
         engine = new CustomEngine();
@@ -40,23 +40,35 @@ const getEngine: () => CustomEngine = () => {
 
         // resolution
         const fitScreen = () => {
-            const fitWidth = cfg.resolution.X * innerHeight > cfg.resolution.Y * innerWidth;
-            if (fitWidth) engine.resizeCanvas({ W: innerWidth, H: innerWidth * cfg.resolution.Y / cfg.resolution.X });
-            else engine.resizeCanvas({ W: innerHeight * cfg.resolution.X / cfg.resolution.Y, H: innerHeight });
+            const fitWidth =
+                cfg.resolution.X * innerHeight > cfg.resolution.Y * innerWidth;
+            if (fitWidth)
+                engine.resizeCanvas({
+                    W: innerWidth,
+                    H: (innerWidth * cfg.resolution.Y) / cfg.resolution.X,
+                });
+            else
+                engine.resizeCanvas({
+                    W: (innerHeight * cfg.resolution.X) / cfg.resolution.Y,
+                    H: innerHeight,
+                });
             engine.Camera.reset();
-            engine.Camera.scale(fitWidth ? innerWidth / cfg.resolution.X : innerHeight / cfg.resolution.Y);
+            engine.Camera.scale(
+                fitWidth
+                    ? innerWidth / cfg.resolution.X
+                    : innerHeight / cfg.resolution.Y,
+            );
 
             // if (cfg.fullscreen) canvas.requestFullscreen({ navigationUI: "hide" });
-            
+
             (<any>window).engine = engine;
         };
         fitScreen();
-        addEventListener('resize', fitScreen);
+        addEventListener("resize", fitScreen);
 
         // event
-
     }
     return engine;
-}
+};
 
 export default getEngine;

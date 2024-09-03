@@ -5,9 +5,12 @@ export type DisplayConfig = {
     fullscreen: boolean;
 };
 
-export function applyDisplayConfig(config: Config, displayConfig: DisplayConfig) {
+export function applyDisplayConfig(
+    config: Config,
+    displayConfig: DisplayConfig,
+) {
     if (!displayConfig) return;
-    const [ x, y ] = displayConfig.resolution;
+    const [x, y] = displayConfig.resolution;
     config.resolution.X = x;
     config.resolution.Y = y;
 
