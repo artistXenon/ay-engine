@@ -1,14 +1,25 @@
-export type SceneType = "speak" | "cg";
+export type FrameType = "speak" | "cg" | "choice" | "custom";
 
-export type StoryData = {
-    type: SceneType;
+export type FrameData = {
+    type: FrameType;
     beforeBody?: string[];
     afterBody?: string[];
     speaker?: string;
     line?: string;
+    choices?: string[];
+    choiceHandler?: string;
 };
 
-export type StoryChapter = {
+export type SceneData = {
     meta: { assets: string[] };
-    scenario: StoryData[];
+    frames: FrameData[];
 };
+
+export type Save = {
+    index: number[];
+    extra: any;
+};
+
+export interface IPlayer {
+    shenanigan(): never;
+}

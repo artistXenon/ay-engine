@@ -15,4 +15,4 @@ const PredefinedDirectives = {
     },
 };
 
-export default PredefinedDirectives;
+export default <any>PredefinedDirectives;

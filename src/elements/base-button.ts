@@ -1,6 +1,5 @@
 import { IPointerListener } from "artistic-engine/event";
 import { Sprite } from "artistic-engine/sprite";
-import { RunningEngine } from "../state";
 import { ResolutionVector } from "../helper";
 
 export default abstract class BaseButton

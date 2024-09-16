@@ -64,7 +64,6 @@ class MainScene extends Scene {
         (<ResolutionVector>this.quitButton.Position).baseY = 850;
 
         this.attachChildren(buttons);
-        RunningEngine().PointerGroup.registerPointerListener(...buttons);
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
@@ -72,7 +71,27 @@ class MainScene extends Scene {
         context.fillRect(0, 0, this.W, this.H);
     }
 
-    onAttachEngine(engine: Engine, previousScene: Scene): void {}
+    onAttachEngine(engine: Engine, previousScene: Scene): void {
+        RunningEngine().PointerGroup.registerPointerListener(
+            this.startButton,
+            this.continueButton,
+            this.loadButton,
+            this.extraButton,
+            this.settingsButton,
+            this.quitButton,
+        );
+    }
+
+    onDetachEngine(engine: Engine, nextScene: Scene): void {
+        RunningEngine().PointerGroup.unregisterPointerListener(
+            this.startButton,
+            this.continueButton,
+            this.loadButton,
+            this.extraButton,
+            this.settingsButton,
+            this.quitButton,
+        );
+    }
 }
 
 let mainScene: MainScene;

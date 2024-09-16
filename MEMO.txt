@@ -1,7 +1,27 @@
 시나리오:
-scenario-1.json, scenario-2.json
-actions.js : eport methods ran by scenario. parameters to be decided
+sequence-1.json, sequence-2.json
+[
+    scene: {
+        frame,
+        frame
+    },
+    scene: {},
+]
+
+directives.js: action script
 
 설정:
 
+플레이어 메뉴:
 
+스킵 토글
+자동 재생
+UI 숨기기
+로그 보기
+
+저장하기
+불러오기
+설정 열기
+메인으로
+
+엔진: pointer group의 register 오류 체크

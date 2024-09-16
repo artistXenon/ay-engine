@@ -8,6 +8,9 @@ export default class StartButton extends MainMenuButton {
     }
 
     public onUp(e: PointerEvent): void {
-        RunningEngine().Scene = PlayerScene(Scenario());
+        // TODO: branch. if saved game: select chapter; else: start 0
+        const playerScene = PlayerScene();
+        RunningEngine().Scene = playerScene;
+        playerScene.load(); // instruct where the player to begin
     }
 }
