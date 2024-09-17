@@ -1,13 +1,15 @@
 import { Scene } from "artistic-engine/sprite";
 import { Engine } from "artistic-engine";
 import { ResolutionVector } from "../helper";
-import { Scenario as getScenario } from "../state/scenario";
+import { Scenario } from "../state/scenario";
 import { Dialog, Menu } from "../elements/player";
 import { RunningEngine } from "../state";
 import { Save } from "../state/scenario/local-types";
 import { IPointerListener } from "artistic-engine/event";
 
 class PlayerScene extends Scene implements IPointerListener {
+    private scenario: Scenario | undefined;
+
     private dialog: Dialog;
 
     private menu: Menu;
@@ -26,13 +28,13 @@ class PlayerScene extends Scene implements IPointerListener {
         this.attachChildren([this.dialog, this.menu]);
     }
 
-    public load(save?: Save) {
-        const frame = getScenario().resolveNextFrame();
-        console.log(frame);
+    public load(scenario: Scenario, save?: Save) {
+        this.scenario = scenario;
+        this.playFrame(save);
     }
 
     public playFrame(save?: Save) {
-        const scenario = getScenario();
+        const scenario = this.scenario!;
         const frame = scenario.resolveNextFrame(save);
 
         if (frame === undefined) {
@@ -78,9 +80,9 @@ class PlayerScene extends Scene implements IPointerListener {
         this.playFrame();
     }
 
-    // INFO: PLAYER
-    shenanigan(): never {
-        throw new Error("Method not implemented.");
+    public hideUI(toggle: boolean) {
+        this.UIHidden = toggle;
+        this.menu.PointerRegistered = !toggle;
     }
 
     onPointer(
@@ -90,6 +92,11 @@ class PlayerScene extends Scene implements IPointerListener {
         inBound: boolean,
         e: PointerEvent,
     ): boolean {
+        if (type === "pointerup") {
+            console.log("player scene!!!");
+            // TODO: if ui hidden, show ui.
+            // TODO: else skip or next
+        }
         return true;
     }
 
@@ -99,17 +106,11 @@ class PlayerScene extends Scene implements IPointerListener {
     }
 
     onAttachEngine(engine: Engine, previousScene: Scene): void {
-        RunningEngine().PointerGroup.registerPointerListener(
-            this.dialog,
-            this.menu,
-        );
+        RunningEngine().PointerGroup.registerPointerListener(this, this.menu);
     }
 
     onDetachEngine(engine: Engine, nextScene: Scene): void {
-        RunningEngine().PointerGroup.unregisterPointerListener(
-            this.dialog,
-            this.menu,
-        );
+        RunningEngine().PointerGroup.unregisterPointerListener(this, this.menu);
     }
 }
 

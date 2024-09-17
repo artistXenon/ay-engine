@@ -1,7 +1,7 @@
 import { Engine } from "artistic-engine";
 import { Scene } from "artistic-engine/sprite";
 import { IPointerListener } from "artistic-engine/event";
-import { Config, RunningEngine } from "../state";
+import { RunningEngine } from "../state";
 import { MainScene } from ".";
 import { ResolutionVector } from "../helper";
 

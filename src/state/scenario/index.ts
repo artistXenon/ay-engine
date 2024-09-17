@@ -1,12 +1,19 @@
 import Scenario from "./scenario";
 
-let instance: Scenario | undefined;
+let scenarioMap: Map<string, Scenario>;
 
-const getScenario = () => {
-    if (instance === undefined) {
-        instance = new Scenario("", "");
+const initScenario = () => {
+    if (scenarioMap === undefined) {
+        scenarioMap = new Map<string, Scenario>();
+        const key = "main";
+        scenarioMap.set(key, new Scenario(key));
     }
-    return instance;
+    return scenarioMap;
 };
 
-export { getScenario as Scenario };
+const getMainScenario = () => {
+    return initScenario().get("main")!;
+};
+// TODO: get extra scenario
+
+export { Scenario, getMainScenario };

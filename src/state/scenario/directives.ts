@@ -10,7 +10,14 @@ const PredefinedDirectives = {
     cg: function (...image_assets: string[]) {
         // Stub
     },
+    voice: function () {
+        // Stub
+    },
     transition: function () {
+        // Stub
+    },
+
+    jump: function (index: string) {
         // Stub
     },
 };

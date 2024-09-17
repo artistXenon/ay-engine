@@ -6,14 +6,14 @@
         "frames": [
             {
                 "type": "speak",
-                "beforeBody": ["", ""],
+                "beforeBody": ["bgm()", "bgi()"],
                 "afterBody": ["", ""],
                 "speaker": "aY쿤", 
                 "line": "ay 플레이어 테스트를 위한 가상 시나리오 입니다.\n"
             },
             {
                 "type": "speak",
-                "beforeBody": ["", ""],
+                "beforeBody": ["bgm(test1)", "bgi(test1)"],
                 "afterBody": ["", ""],
                 "speaker": null, 
                 "line": "화자가 없는 텍스트입니다. 그럼 이어서 테스트에 들어가겠습니다."

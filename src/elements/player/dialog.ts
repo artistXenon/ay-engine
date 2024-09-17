@@ -1,45 +1,44 @@
-import { IPointerListener } from "artistic-engine/event";
 import { Sprite } from "artistic-engine/sprite";
 import { ResolutionVector } from "../../helper";
 
-export default class PlayerDialog extends Sprite implements IPointerListener {
-    private speaker: DialogSpeaker;
+export default class PlayerDialog extends Sprite {
+    private speaker: string | undefined;
 
-    private line: DialogLine;
+    private line: string = "";
 
-    private next: DialogCursor; // info: 대화창 다음을 나타내는 ▼
+    private speakerSprite: DialogSpeaker;
 
-    private opacity: number = 1;
+    private lineSprite: DialogLine;
+
+    private cursorSprite: DialogCursor; // info: 대화창 다음을 나타내는 ▼
+
+    private isplaying: boolean = false;
 
     constructor() {
         super();
         this.Position = new ResolutionVector(0, 1080 * 0.7);
         this.Dimension = new ResolutionVector(1920, 1080 * 0.3);
-        this.speaker = new DialogSpeaker();
-        this.line = new DialogLine();
-        this.next = new DialogCursor();
+        this.speakerSprite = new DialogSpeaker();
+        this.lineSprite = new DialogLine();
+        this.cursorSprite = new DialogCursor();
+    }
+
+    public get isPlaying() {
+        return this.isplaying;
     }
 
     public setNextData(speaker: string | undefined, line: string = "") {
         // TODO
+        this.speaker = speaker;
+        this.line = line;
     }
 
-    public playNext() {}
+    public playNext() {
+        this.isplaying = true;
+    }
 
-    public skipPlay() {}
-
-    onPointer(
-        type: string,
-        localX: number,
-        localY: number,
-        inBound: boolean,
-        e: PointerEvent,
-    ): boolean {
-        //  Stub
-        if (!inBound) return false;
-        if (type === "pointerdown")
-            console.log("player-dialog", localX, localY);
-        return true;
+    public skipPlay() {
+        this.isplaying = false;
     }
 
     onDraw(context: CanvasRenderingContext2D, delay: number): void {

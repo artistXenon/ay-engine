@@ -2,8 +2,12 @@ import { Sprite } from "artistic-engine/sprite";
 import BaseButton from "../base-button";
 import { ResolutionVector } from "../../helper";
 import { IPointerListener } from "artistic-engine/event";
+import { RunningEngine } from "../../state";
+import { MainScene, SettingsScene } from "../../scenes";
 
 export default class PlayerMenu extends Sprite implements IPointerListener {
+    public PointerRegistered: boolean = true;
+
     private menuItems: PlayerMenuItem[] = [];
 
     constructor() {
@@ -18,8 +22,12 @@ export default class PlayerMenu extends Sprite implements IPointerListener {
             new PlayerMenuItem(220, 10, 50, 50, "show-log"),
             new PlayerMenuItem(290, 10, 50, 50, "save-menu"),
             new PlayerMenuItem(360, 10, 50, 50, "load-menu"),
-            new PlayerMenuItem(430, 10, 50, 50, "settings-menu"),
-            new PlayerMenuItem(500, 10, 50, 50, "main-scene"),
+            new PlayerMenuItem(430, 10, 50, 50, "settings-menu", () => {
+                RunningEngine().Scene = SettingsScene();
+            }),
+            new PlayerMenuItem(500, 10, 50, 50, "main-scene", () => {
+                RunningEngine().Scene = MainScene();
+            }),
         ];
 
         this.attachChildren(this.menuItems);
@@ -37,6 +45,7 @@ export default class PlayerMenu extends Sprite implements IPointerListener {
             itemX: number,
             itemY: number,
             itemBound: boolean;
+        let isBound = false;
         for (menuItem of this.menuItems) {
             itemX = localX - menuItem.X;
             itemY = localY - menuItem.Y;
@@ -45,10 +54,10 @@ export default class PlayerMenu extends Sprite implements IPointerListener {
                 itemY > 0 &&
                 itemX < menuItem.W &&
                 itemY < menuItem.H;
-
+            isBound ||= itemBound;
             menuItem.onPointer(type, itemX, itemY, itemBound, e);
         }
-        return true;
+        return isBound;
     }
 
     onDraw(context: CanvasRenderingContext2D, delay: number): void {
@@ -69,16 +78,19 @@ export default class PlayerMenu extends Sprite implements IPointerListener {
 class PlayerMenuItem extends BaseButton {
     private name;
 
+    private onClick: () => void;
+
     constructor(
         X: number,
         Y: number,
         W: number,
         H: number,
         name?: string,
-        onClick?: () => void,
+        onClick: () => void = () => undefined,
     ) {
         super(X, Y, W, H);
         this.name = name;
+        this.onClick = onClick;
     }
     public onDraw(context: CanvasRenderingContext2D, delay: number): void {
         context.fillStyle = "white";
@@ -89,7 +101,9 @@ class PlayerMenuItem extends BaseButton {
         console.log("clicked " + this.name);
     }
 
-    public onUp(e: PointerEvent): void {}
+    public onUp(e: PointerEvent): void {
+        this.onClick();
+    }
 
     public onHover(e: PointerEvent): void {}
 

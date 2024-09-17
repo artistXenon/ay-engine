@@ -1,12 +1,12 @@
 import { SplashScene } from "./scenes";
-import { AssetManager, Config, RunningEngine, Scenario } from "./state";
+import { AssetManager, Config, getMainScenario, RunningEngine } from "./state";
 import "./style.css";
 
 // init config file
 const config = Config();
 
 // init scenario load
-const scenario = Scenario();
+const scenario = getMainScenario();
 
 // read splash, main image, font assets
 const engine = RunningEngine();

@@ -1,5 +1,5 @@
 import { PlayerScene } from "../../scenes";
-import { RunningEngine, Scenario } from "../../state";
+import { getMainScenario, RunningEngine } from "../../state";
 import MainMenuButton from "./button";
 
 export default class StartButton extends MainMenuButton {
@@ -11,6 +11,6 @@ export default class StartButton extends MainMenuButton {
         // TODO: branch. if saved game: select chapter; else: start 0
         const playerScene = PlayerScene();
         RunningEngine().Scene = playerScene;
-        playerScene.load(); // instruct where the player to begin
+        playerScene.load(getMainScenario()); // instruct where the player to begin
     }
 }

@@ -19,7 +19,6 @@ class SaveLoadScene extends Scene {
         (<ResolutionVector>this.quitButton.Position).baseY = 100;
 
         this.attachChildren(buttons);
-        RunningEngine().PointerGroup.registerPointerListener(...buttons);
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
@@ -33,6 +32,11 @@ class SaveLoadScene extends Scene {
 
     onAttachEngine(engine: Engine, previousScene: Scene): void {
         this.returnToScene = previousScene;
+        RunningEngine().PointerGroup.registerPointerListener(this.quitButton);
+    }
+
+    onDetachEngine(engine: Engine, nextScene: Scene): void {
+        RunningEngine().PointerGroup.unregisterPointerListener(this.quitButton);
     }
 }
 

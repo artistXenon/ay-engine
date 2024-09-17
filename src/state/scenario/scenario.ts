@@ -12,7 +12,7 @@ export default class Scenario {
 
     private directives: any;
 
-    constructor(path: string, savePath: string) {
+    constructor(scenarioName: string) {
         // get local save head
         // TODO: test purpose - head is null
         const head: Save = {
@@ -20,6 +20,7 @@ export default class Scenario {
             extra: {},
         };
 
+        // TODO: get sequence list from scenario directory
         const sequences = ["/sequence.json"];
 
         this.sequences.length = sequences.length;
@@ -33,9 +34,6 @@ export default class Scenario {
         fetch("/directives.js")
             .then((response) => response.text())
             .then((directives) => (this.directives = eval(directives)));
-
-        // WARN: DEBUG remove
-        (<any>window).scenario = this;
     }
 
     public Reset() {
@@ -106,7 +104,7 @@ export default class Scenario {
             if (index !== -1) {
                 resolvedDirective = (<() => void>(
                     this.directives[methodName]
-                )).bind(undefined, ...args); // TODO: write default arguments to function. player, engine media etc
+                )).bind(undefined, ...args); // TODO: write default arguments to function. player, engine, media, frame etc
             } else {
                 // look for pre directives
                 index = Object.keys(PredefinedDirectives).indexOf(methodName);
