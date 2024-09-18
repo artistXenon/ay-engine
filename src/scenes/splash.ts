@@ -1,7 +1,7 @@
 import { Engine } from "artistic-engine";
 import { Scene } from "artistic-engine/sprite";
 import { IPointerListener } from "artistic-engine/event";
-import { RunningEngine } from "../state";
+import { CustomEngine, RunningEngine } from "../state";
 import { MainScene } from ".";
 import { ResolutionVector } from "../helper";
 
@@ -17,10 +17,17 @@ class SplashScene extends Scene implements IPointerListener {
     }
 
     public onAttachEngine(engine: Engine, previousScene: Scene): void {
-        // this is auto skip but require click
+        (<CustomEngine>engine).PointerGroup.registerPointerListener(this);
+
+        // TODO: this is auto skip but require click
+        // TODO: start playing animation about publish and dev
         // setTimeout(() => {
         //     this.skip();
         // }, 2000);
+    }
+
+    public onDetachEngine(engine: Engine, nextScene: Scene): void {
+        (<CustomEngine>engine).PointerGroup.unregisterPointerListener(this);
     }
 
     onPointer(

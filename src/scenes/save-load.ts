@@ -1,11 +1,10 @@
-import { Scene } from "artistic-engine/sprite";
-import { RunningEngine } from "../state";
-import { Engine } from "artistic-engine";
 import { SaveLoadQuitButton } from "../elements/save-load";
 import { ResolutionVector } from "../helper";
+import AYScene from "../helper/ay-scene";
 
-class SaveLoadScene extends Scene {
-    private returnToScene: Scene | undefined;
+class SaveLoadScene extends AYScene {
+    // INFO: true> load mode, false> save mode
+    private loadsaveMode: boolean = true;
 
     private quitButton: SaveLoadQuitButton;
 
@@ -13,30 +12,17 @@ class SaveLoadScene extends Scene {
         super();
         this.Dimension = new ResolutionVector(1920, 1080);
         this.quitButton = new SaveLoadQuitButton();
-        const buttons = [this.quitButton];
+        this.iPointerListeners.push(this.quitButton);
 
         (<ResolutionVector>this.quitButton.Position).baseX = 100;
         (<ResolutionVector>this.quitButton.Position).baseY = 100;
 
-        this.attachChildren(buttons);
+        this.attachChildren(this.iPointerListeners);
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
         context.fillStyle = "pink";
         context.fillRect(0, 0, this.W, this.H);
-    }
-
-    public close() {
-        RunningEngine().Scene = this.returnToScene;
-    }
-
-    onAttachEngine(engine: Engine, previousScene: Scene): void {
-        this.returnToScene = previousScene;
-        RunningEngine().PointerGroup.registerPointerListener(this.quitButton);
-    }
-
-    onDetachEngine(engine: Engine, nextScene: Scene): void {
-        RunningEngine().PointerGroup.unregisterPointerListener(this.quitButton);
     }
 }
 

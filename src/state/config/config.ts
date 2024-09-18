@@ -1,9 +1,8 @@
 import { Vector } from "artistic-engine";
 import { applyDisplayConfig, DisplayConfig } from "./display";
-import { RunningEngine } from "..";
 // TODO: way to supply local config
 
-type ConfigFile = {
+export type ConfigFile = {
     display: DisplayConfig;
     audio: Object;
     dialog: Object;

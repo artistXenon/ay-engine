@@ -1,15 +1,34 @@
-import { Config } from "./config";
+import { Config, ConfigFile } from "./config";
 
-import config from "../../config.json";
+import { getConfigFile } from "../../tauri";
 
 let instance: Config | undefined;
 
-const getConfig = () => {
-    if (instance === undefined) {
-        instance = new Config(config);
-        (<any>window).config = instance;
-    }
-    return instance;
+const defaultConfig: ConfigFile = {
+    display: {
+        resolution: [1920, 1080],
+        fullscreen: false,
+    },
+    audio: {
+        master: 100,
+        voice: 100,
+        music: 100,
+    },
+    dialog: {},
+    keybind: {},
 };
 
-export { getConfig as Config };
+const loadConfig = async () => {
+    return getConfigFile(JSON.stringify(defaultConfig))
+        .then((config) => JSON.parse(config))
+        .then((parsed_config) => {
+            instance = new Config(parsed_config);
+            (<any>window).config = instance;
+        });
+};
+
+const getConfig = () => {
+    return instance!;
+};
+
+export { loadConfig, getConfig as Config };

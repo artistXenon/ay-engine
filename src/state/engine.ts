@@ -4,7 +4,7 @@ import { Config } from ".";
 
 const canvas = document.querySelector<HTMLCanvasElement>("#main")!;
 
-class CustomEngine extends Engine {
+export class CustomEngine extends Engine {
     public KeyboardGroup: KeyboardEventGroup;
 
     public PointerGroup: PointerEventGroup;
@@ -71,4 +71,4 @@ const getEngine: () => CustomEngine = () => {
     return engine;
 };
 
-export default getEngine;
+export { getEngine };

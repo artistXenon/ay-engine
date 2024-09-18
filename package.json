@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint -c eslint.config.js"
+    "lint": "eslint -c eslint.config.js",
+    "tauri": "tauri"
   },
   "repository": {
     "type": "git",
@@ -27,11 +28,14 @@
   },
   "homepage": "https://github.com/artistXenon/ay-engine#readme",
   "dependencies": {
+    "@tauri-apps/api": ">=2.0.0-rc.0",
+    "@tauri-apps/plugin-shell": ">=2.0.0-rc.0",
     "artistic-engine": "^1.4.6",
     "typescript-eslint": "^8.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
+    "@tauri-apps/cli": ">=2.0.0-rc.0",
     "@typescript-eslint/parser": "^8.4.0",
     "eslint": "^9.9.1",
     "eslint-plugin-prettier": "^5.2.1",

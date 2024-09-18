@@ -7,6 +7,6 @@ export default class QuitButton extends SettingsButton {
     }
 
     public onUp(e: PointerEvent): void {
-        SettingsScene().close();
+        SettingsScene().exitScene();
     }
 }

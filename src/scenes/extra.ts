@@ -1,12 +1,8 @@
-import { Scene } from "artistic-engine/sprite";
-import { RunningEngine } from "../state";
-import { Engine } from "artistic-engine";
 import { ExtraQuitButton } from "../elements/extra";
 import { ResolutionVector } from "../helper";
+import AYScene from "../helper/ay-scene";
 
-class ExtraScene extends Scene {
-    private returnToScene: Scene | undefined;
-
+class ExtraScene extends AYScene {
     private quitButton: ExtraQuitButton;
 
     constructor() {
@@ -19,20 +15,12 @@ class ExtraScene extends Scene {
         (<ResolutionVector>this.quitButton.Position).baseY = 100;
 
         this.attachChildren(buttons);
-        RunningEngine().PointerGroup.registerPointerListener(...buttons);
+        this.iPointerListeners.push(...buttons);
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
         context.fillStyle = "grey";
         context.fillRect(0, 0, this.W, this.H);
-    }
-
-    public close() {
-        RunningEngine().Scene = this.returnToScene;
-    }
-
-    onAttachEngine(engine: Engine, previousScene: Scene): void {
-        this.returnToScene = previousScene;
     }
 }
 

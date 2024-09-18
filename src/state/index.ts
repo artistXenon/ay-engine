@@ -1,7 +1,7 @@
 import { Config } from "./config";
 import { Scenario, getMainScenario } from "./scenario";
 import AssetManager from "./asset";
-import getEngine from "./engine";
+import { CustomEngine, getEngine } from "./engine";
 
 export {
     Config,
@@ -9,4 +9,5 @@ export {
     getMainScenario,
     AssetManager,
     getEngine as RunningEngine,
+    CustomEngine,
 };

@@ -23,8 +23,6 @@ export default abstract class BaseButton
         inBound: boolean,
         e: PointerEvent,
     ): boolean {
-        // TODO: engine update - give bound info as parameter
-        // getBoundingClientRect()
         if (this.Disabled) return true;
 
         if (inBound) {

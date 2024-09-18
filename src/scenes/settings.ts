@@ -1,12 +1,8 @@
-import { Scene } from "artistic-engine/sprite";
-import { RunningEngine } from "../state";
-import { Engine } from "artistic-engine";
 import { SettingsQuitButton } from "../elements/settings";
 import { ResolutionVector } from "../helper";
+import AYScene from "../helper/ay-scene";
 
-class SettingsScene extends Scene {
-    private returnToScene: Scene | undefined;
-
+class SettingsScene extends AYScene {
     private quitButton: SettingsQuitButton;
 
     constructor() {
@@ -14,30 +10,17 @@ class SettingsScene extends Scene {
         this.Dimension = new ResolutionVector(1920, 1080);
 
         this.quitButton = new SettingsQuitButton();
-        const buttons = [this.quitButton];
+        this.iPointerListeners.push(this.quitButton);
 
         (<ResolutionVector>this.quitButton.Position).baseX = 100;
         (<ResolutionVector>this.quitButton.Position).baseY = 100;
 
-        this.attachChildren(buttons);
+        this.attachChildren(this.iPointerListeners);
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
         context.fillStyle = "skyblue";
         context.fillRect(0, 0, this.W, this.H);
-    }
-
-    public close() {
-        RunningEngine().Scene = this.returnToScene;
-    }
-
-    onAttachEngine(engine: Engine, previousScene: Scene): void {
-        this.returnToScene = previousScene;
-        RunningEngine().PointerGroup.registerPointerListener(this.quitButton);
-    }
-
-    onDetachEngine(engine: Engine, nextScene: Scene): void {
-        RunningEngine().PointerGroup.unregisterPointerListener(this.quitButton);
     }
 }
 

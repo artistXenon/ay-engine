@@ -7,6 +7,6 @@ export default class QuitButton extends SaveLoadButton {
     }
 
     public onUp(e: PointerEvent): void {
-        SaveLoadScene().close();
+        SaveLoadScene().exitScene();
     }
 }

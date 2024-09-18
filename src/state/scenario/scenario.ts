@@ -15,10 +15,10 @@ export default class Scenario {
     constructor(scenarioName: string) {
         // get local save head
         // TODO: test purpose - head is null
-        const head: Save = {
-            index: [0, 0, 0], // sequence, scene, frame
-            extra: {},
-        };
+        // const head: Save = {
+        //     index: [0, 0, 0], // sequence, scene, frame
+        //     extra: {},
+        // };
 
         // TODO: get sequence list from scenario directory
         const sequences = ["/sequence.json"];

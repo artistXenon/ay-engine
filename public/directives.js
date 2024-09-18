@@ -4,7 +4,6 @@
     showlog: function() {
         console.log("boo!");
     },
-    // WOW
     template: function (engine, scene, ...args) {
 
     }

@@ -24,4 +24,4 @@ UI 숨기기
 설정 열기
 메인으로
 
-엔진: pointer group의 register 오류 체크
+엔진: image asset 형식 switch
