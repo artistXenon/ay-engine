@@ -1,10 +1,10 @@
-import { Config, ConfigFile } from "./config";
+import { Config, ConfigData } from "./config";
 
 import { getConfigFile } from "../../tauri";
 
 let instance: Config | undefined;
 
-const defaultConfig: ConfigFile = {
+const defaultConfig: ConfigData = {
     display: {
         resolution: [1920, 1080],
         fullscreen: false,
@@ -19,12 +19,15 @@ const defaultConfig: ConfigFile = {
 };
 
 const loadConfig = async () => {
-    return getConfigFile(JSON.stringify(defaultConfig))
-        .then((config) => JSON.parse(config))
-        .then((parsed_config) => {
-            instance = new Config(parsed_config);
-            (<any>window).config = instance;
-        });
+    try {
+        const config = await getConfigFile(defaultConfig);
+        instance = new Config(config);
+
+        // TODO: debugging purpose, remove later on
+        (<any>window).config = instance;
+    } catch (e) {
+        window.tauri_panic(`loadConfig`, e);
+    }
 };
 
 const getConfig = () => {

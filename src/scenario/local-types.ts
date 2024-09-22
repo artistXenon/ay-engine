@@ -1,5 +1,9 @@
 export type FrameType = "speak" | "cg" | "choice" | "custom";
 
+export type ScenarioToC = {
+    [key: string]: number;
+};
+
 export type FrameData = {
     type: FrameType;
     beforeBody?: string[];
@@ -15,9 +19,15 @@ export type SceneData = {
     frames: FrameData[];
 };
 
-export type Save = {
+export type SaveData = {
     index: number[];
     extra: any;
+};
+
+type saveKey = "head" | `${number}`;
+
+export type SaveBook = {
+    [key in saveKey]: SaveData;
 };
 
 export interface IPlayer {

@@ -1,5 +1,6 @@
+import { getMainScenario } from "../../scenario";
 import { PlayerScene } from "../../scenes";
-import { getMainScenario, RunningEngine } from "../../state";
+import { RunningEngine } from "../../state";
 import MainMenuButton from "./button";
 
 export default class StartButton extends MainMenuButton {

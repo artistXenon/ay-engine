@@ -1,15 +1,19 @@
-import { SplashScene } from "./scenes";
-import { AssetManager, Config, getMainScenario, RunningEngine } from "./state";
-import { loadConfig } from "./state/config";
 import "./style.css";
+import { tauri_init } from "./tauri";
+import { loadScenarios } from "./scenario";
+import { SplashScene } from "./scenes";
+import { AssetManager, RunningEngine } from "./state";
+import { loadConfig } from "./state/config";
 
-// init config file
 (async () => {
+    // init tauri config
+    tauri_init();
+
+    // init config file
     await loadConfig();
 
     // init scenario load
-    // TODO: maybe better expression. cuz this loads every scenarios.
-    const scenario = getMainScenario();
+    await loadScenarios();
 
     // read splash, main image, font assets
     const engine = RunningEngine();

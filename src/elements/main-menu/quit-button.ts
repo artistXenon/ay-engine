@@ -1,5 +1,6 @@
 import { MainScene } from "../../scenes";
 import { RunningEngine } from "../../state";
+import { quitGame } from "../../tauri";
 import BaseModal from "../base-modal";
 import MainMenuButton from "./button";
 
@@ -14,9 +15,9 @@ export default class QuitButton extends MainMenuButton {
             this.modal = new BaseModal(
                 "정말로 종료하시겠슴까",
                 "나가면 쓸쓸할텐디...\n한번만 더 생각해 보시오...",
-                (baseModal) => {
-                    // TODO: replace with actual functionality
-                    console.log("종료되어따!");
+                () => {
+                    // TODO: maybe quit animation and audio
+                    quitGame();
                 },
                 (baseModal) => {
                     baseModal.close();

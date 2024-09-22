@@ -1,5 +1,5 @@
 // import ~~ from './~~';
-import GowunBatang from "/GowunBatang-Regular.woff";
+import GowunBatang from "./etc/GowunBatang-Regular.woff";
 import logg from "/pfp.png";
 import { AssetLoader, Bitmap } from "artistic-engine";
 

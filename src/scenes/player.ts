@@ -1,10 +1,10 @@
 import { Scene } from "artistic-engine/sprite";
 import { Engine } from "artistic-engine";
 import { ResolutionVector } from "../helper";
-import { Scenario } from "../state/scenario";
+import { Scenario } from "../scenario";
 import { Dialog, Menu } from "../elements/player";
 import { RunningEngine } from "../state";
-import { Save } from "../state/scenario/local-types";
+import { SaveData } from "../scenario/local-types";
 import { IPointerListener } from "artistic-engine/event";
 
 class PlayerScene extends Scene implements IPointerListener {
@@ -28,12 +28,12 @@ class PlayerScene extends Scene implements IPointerListener {
         this.attachChildren([this.dialog, this.menu]);
     }
 
-    public load(scenario: Scenario, save?: Save) {
+    public load(scenario: Scenario, save?: SaveData) {
         this.scenario = scenario;
         this.playFrame(save);
     }
 
-    public playFrame(save?: Save) {
+    public playFrame(save?: SaveData) {
         const scenario = this.scenario!;
         const frame = scenario.resolveNextFrame(save);
 

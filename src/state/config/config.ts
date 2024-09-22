@@ -2,7 +2,7 @@ import { Vector } from "artistic-engine";
 import { applyDisplayConfig, DisplayConfig } from "./display";
 // TODO: way to supply local config
 
-export type ConfigFile = {
+export type ConfigData = {
     display: DisplayConfig;
     audio: Object;
     dialog: Object;
@@ -14,7 +14,7 @@ export class Config {
 
     public resolution = new Vector.Vector2D(1920, 1080);
 
-    constructor(config: ConfigFile) {
+    constructor(config: ConfigData) {
         applyDisplayConfig(this, config.display);
     }
 
