@@ -25,7 +25,7 @@ UI 숨기기
 메인으로
 
 
-엔진: image asset 형식 switch
+엔진: update 반영
 
 로그 태그: 
 [time@Namespace::Class#method(context)] (info/warn/err): CODE message\n

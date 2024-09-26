@@ -1,20 +1,30 @@
 import { setSaveFile } from "../tauri";
 import { SaveBook, SaveData } from "./local-types";
 
-const defaultSave: SaveBook = {
+const defaultSaveBook: SaveBook = {
     head: {
-        index: [0, 0],
+        index: [0, 0, 0],
         extra: {},
     },
 };
 
-export { defaultSave };
+export { defaultSaveBook };
 
 export class Saves {
     private saveBook: SaveBook;
 
     constructor(saveBook: SaveBook) {
         this.saveBook = saveBook;
+    }
+
+    public get IsHeadEmpty() {
+        const index = this.saveBook.head.index;
+        return (
+            index[0] === 0 &&
+            index[0] === index[1] &&
+            index[1] === index[2] &&
+            index[2] === index[0]
+        );
     }
 
     public get Head(): SaveData {

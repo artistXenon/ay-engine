@@ -52,7 +52,7 @@ export function throwingFunction(throwit: boolean) {
 export function tauri_init() {
     // declare global panic, quit
     window.tauri_panic = function (tag: string, e: any) {
-        const error = `[${new Date()}@${tag}] e: ${e}`;
+        const error = `[${new Date()}@webview::${tag}] e: ${e}`;
         invoke("panic", {
             error,
         });

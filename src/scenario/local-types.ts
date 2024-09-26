@@ -1,7 +1,8 @@
 export type FrameType = "speak" | "cg" | "choice" | "custom";
 
 export type ScenarioToC = {
-    [key: string]: number;
+    [key: string]: number | undefined;
+    main: number;
 };
 
 export type FrameData = {
@@ -20,7 +21,7 @@ export type SceneData = {
 };
 
 export type SaveData = {
-    index: number[];
+    index: [number, number, number];
     extra: any;
 };
 

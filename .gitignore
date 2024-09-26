@@ -143,3 +143,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# ay-engine config specific
+src-tauri/save.json
+src-tauri/config.json

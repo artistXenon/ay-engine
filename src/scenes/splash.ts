@@ -1,33 +1,66 @@
 import { Engine } from "artistic-engine";
 import { Scene } from "artistic-engine/sprite";
 import { IPointerListener } from "artistic-engine/event";
-import { CustomEngine, RunningEngine } from "../state";
+import { Modifier, SequentialModifier } from "artistic-engine/modifiers";
+import { AssetManager, CustomEngine, RunningEngine } from "../state";
 import { MainScene } from ".";
 import { ResolutionVector } from "../helper";
 
 class SplashScene extends Scene implements IPointerListener {
+    private title: ImageBitmap | undefined;
+
+    private logoOpacity: number = 0;
+
+    private animationModifier: Modifier | undefined;
+
     constructor() {
         super();
         this.Dimension = new ResolutionVector(1920, 1080);
+        AssetManager()
+            .getImage("title-logo")
+            .then((ibm) => (this.title = ibm));
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
-        context.fillStyle = "white";
+        context.fillStyle = "black";
         context.fillRect(0, 0, this.W, this.H);
+        if (this.title) {
+            context.globalAlpha = this.logoOpacity;
+            // TODO: hard-coded logo position, size
+            context.drawImage(this.title, 320, 180, 1280, 720);
+            context.globalAlpha = 1;
+        }
+        // context.strokeStyle = "red";
+        // context.lineWidth = 2;
+        // context.strokeRect(320, 180, 1280, 720);
     }
 
     public onAttachEngine(engine: Engine, previousScene: Scene): void {
-        (<CustomEngine>engine).PointerGroup.registerPointerListener(this);
+        const e = <CustomEngine>engine;
+        e.PointerGroup.registerPointerListener(this);
 
-        // TODO: this is auto skip but require click
         // TODO: start playing animation about publish and dev
-        // setTimeout(() => {
-        //     this.skip();
-        // }, 2000);
+
+        this.animationModifier = new SequentialModifier(
+            new Modifier(0, 1, 2500, (v) => (this.logoOpacity = v)),
+            new Modifier(1, 1, 3000, () => {}),
+            new Modifier(1, 0, 1500, (v) => {
+                this.logoOpacity = v;
+                if (v === 0) {
+                    this.skip();
+                    this.animationModifier = undefined;
+                }
+            }),
+        );
+        e.registerModifier(this.animationModifier);
     }
 
-    public onDetachEngine(engine: Engine, nextScene: Scene): void {
+    public onDetachEngine(engine: Engine): void {
         (<CustomEngine>engine).PointerGroup.unregisterPointerListener(this);
+        if (this.animationModifier) {
+            engine.unregisterModifier(this.animationModifier);
+            this.animationModifier = undefined;
+        }
     }
 
     onPointer(
@@ -37,7 +70,7 @@ class SplashScene extends Scene implements IPointerListener {
         inBound: boolean,
         e: PointerEvent,
     ): boolean {
-        // throw new Error('Method not implemented.');
+        // TODO: button check?
         if (type === "pointerdown") {
             this.skip();
         }
@@ -49,7 +82,6 @@ class SplashScene extends Scene implements IPointerListener {
         const engine = RunningEngine();
         if (engine.Scene !== this) return;
         engine.Scene = MainScene();
-        engine.PointerGroup.unregisterPointerListener(this);
     }
 }
 

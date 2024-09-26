@@ -1,7 +1,8 @@
-// import ~~ from './~~';
-import GowunBatang from "./etc/GowunBatang-Regular.woff";
-import logg from "/pfp.png";
 import { AssetLoader, Bitmap } from "artistic-engine";
+// import ~~ from './~~';
+import logg from "/pfp.png";
+import titleLogo from "/image/wg-logo-720p.png";
+import GowunBatang from "/etc/GowunBatang-Regular.woff";
 
 type AssetCart = {
     images?: string[][];
@@ -10,10 +11,12 @@ type AssetCart = {
     fonts?: string[][];
 };
 
-const assetMap: Map<string, AssetCart> = new Map();
-assetMap
+const assetMap: Map<string, AssetCart> = new Map()
     .set("common", {
-        images: [["logg", logg]], // [ name, file?link? ]
+        images: [
+            ["logg", logg],
+            ["title-logo", titleLogo],
+        ], // [ name, file?link? ]
         musics: [],
         sfxs: [],
         fonts: [["GowunBatang", `url(${GowunBatang})`]],
@@ -77,6 +80,11 @@ class AssetManager {
             return res(imageBitmap);
         });
     }
+
+    public releaseImage(...name: string[]) {
+        // TODO: implement to engine assetloader
+        throw new Error("not implemented");
+    }
 }
 
 let instance: AssetManager | undefined;
@@ -84,6 +92,9 @@ let instance: AssetManager | undefined;
 const getAssetManager = () => {
     if (instance === undefined) {
         instance = new AssetManager();
+
+        // TODO: debugging purpose, remove later on
+        (<any>window).assetmanager = instance;
     }
     return instance;
 };

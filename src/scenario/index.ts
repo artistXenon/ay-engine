@@ -2,7 +2,7 @@ import Scenario from "./scenario";
 import { Directives } from "./directives";
 import { ScenarioToC } from "./local-types";
 import { getSaveFile } from "../tauri";
-import { defaultSave, Saves } from "./saves";
+import { defaultSaveBook, Saves } from "./saves";
 
 let scenarioMap: Map<string, Scenario> = new Map<string, Scenario>();
 let directives: Directives;
@@ -15,7 +15,7 @@ const loadScenarios = async () => {
     const keys = Object.keys(scenarioToC);
     for await (const key of keys) {
         const loadedScenario = await new Promise<Scenario>(
-            (resolve) => new Scenario(key, scenarioToC[key], resolve),
+            (resolve) => new Scenario(key, scenarioToC[key]!, resolve),
         );
         scenarioMap.set(key, loadedScenario);
     }
@@ -39,7 +39,7 @@ const getDirectives = () => {
 };
 
 const loadSaves = async () => {
-    const save = await getSaveFile(defaultSave);
+    const save = await getSaveFile(defaultSaveBook);
     saves = new Saves(save);
 };
 
