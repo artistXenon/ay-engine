@@ -36,15 +36,10 @@ export function setSaveFile(updateSave: SaveBook) {
     });
 }
 
-export function greet(name: string) {
-    return invoke("greet", {
-        name,
-    });
-}
-
-export function throwingFunction(throwit: boolean) {
-    return invoke("throwing_function", {
-        throwit,
+export function resizeWindow(width: number, height: number) {
+    return invoke<string>("resize_window", {
+        width,
+        height,
     });
 }
 

@@ -87,6 +87,7 @@ class PlayerScene extends Scene implements IPointerListener {
 
     onPointer(
         type: string,
+        button: number,
         localX: number,
         localY: number,
         inBound: boolean,

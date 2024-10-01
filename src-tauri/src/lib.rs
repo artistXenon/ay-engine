@@ -38,6 +38,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             get_config_file, get_save_file,
             set_config_file, set_save_file,
+            resize_window,
             panic, quit_game
         ])
 

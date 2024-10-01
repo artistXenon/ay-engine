@@ -11,7 +11,7 @@ class SplashScene extends Scene implements IPointerListener {
 
     private logoOpacity: number = 0;
 
-    private animationModifier: Modifier | undefined;
+    private animationModifier: Modifier;
 
     constructor() {
         super();
@@ -19,6 +19,17 @@ class SplashScene extends Scene implements IPointerListener {
         AssetManager()
             .getImage("title-logo")
             .then((ibm) => (this.title = ibm));
+
+        this.animationModifier = new SequentialModifier(
+            new Modifier(0, 1, 2500, (v) => (this.logoOpacity = v)),
+            new Modifier(1, 1, 3000, () => {}),
+            new Modifier(1, 0, 1500, (v) => {
+                this.logoOpacity = v;
+                if (v === 0) {
+                    this.skip();
+                }
+            }),
+        );
     }
 
     override onDraw(context: CanvasRenderingContext2D, delay: number): void {
@@ -39,32 +50,17 @@ class SplashScene extends Scene implements IPointerListener {
         const e = <CustomEngine>engine;
         e.PointerGroup.registerPointerListener(this);
 
-        // TODO: start playing animation about publish and dev
-
-        this.animationModifier = new SequentialModifier(
-            new Modifier(0, 1, 2500, (v) => (this.logoOpacity = v)),
-            new Modifier(1, 1, 3000, () => {}),
-            new Modifier(1, 0, 1500, (v) => {
-                this.logoOpacity = v;
-                if (v === 0) {
-                    this.skip();
-                    this.animationModifier = undefined;
-                }
-            }),
-        );
         e.registerModifier(this.animationModifier);
     }
 
     public onDetachEngine(engine: Engine): void {
         (<CustomEngine>engine).PointerGroup.unregisterPointerListener(this);
-        if (this.animationModifier) {
-            engine.unregisterModifier(this.animationModifier);
-            this.animationModifier = undefined;
-        }
+        engine.unregisterModifier(this.animationModifier);
     }
 
     onPointer(
         type: string,
+        button: number,
         localX: number,
         localY: number,
         inBound: boolean,

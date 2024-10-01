@@ -18,6 +18,7 @@ export default abstract class BaseButton
 
     onPointer(
         type: string,
+        button: number,
         localX: number,
         localY: number,
         inBound: boolean,

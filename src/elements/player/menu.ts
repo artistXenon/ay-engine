@@ -35,6 +35,7 @@ export default class PlayerMenu extends Sprite implements IPointerListener {
 
     onPointer(
         type: string,
+        button: number,
         localX: number,
         localY: number,
         inBound: boolean,
@@ -55,7 +56,7 @@ export default class PlayerMenu extends Sprite implements IPointerListener {
                 itemX < menuItem.W &&
                 itemY < menuItem.H;
             isBound ||= itemBound;
-            menuItem.onPointer(type, itemX, itemY, itemBound, e);
+            menuItem.onPointer(type, button, itemX, itemY, itemBound, e);
         }
         return isBound;
     }

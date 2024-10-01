@@ -39,18 +39,18 @@ export default class ResolutionVector extends Vector.Vector2D {
     }
 
     public static tobaseX(x: number) {
-        return (x * ResolutionVector.width) / Config().resolution.X;
+        return (x * ResolutionVector.width) / Config().Resolution.X;
     }
 
     public static tobaseY(y: number) {
-        return (y * ResolutionVector.height) / Config().resolution.Y;
+        return (y * ResolutionVector.height) / Config().Resolution.Y;
     }
 
     public static toRelativeX(x: number) {
-        return (Config().resolution.X * x) / ResolutionVector.width;
+        return (Config().Resolution.X * x) / ResolutionVector.width;
     }
 
     public static toRelativeY(y: number) {
-        return (Config().resolution.Y * y) / ResolutionVector.height;
+        return (Config().Resolution.Y * y) / ResolutionVector.height;
     }
 }

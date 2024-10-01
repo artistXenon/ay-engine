@@ -18,7 +18,7 @@ export default class BaseModal extends Sprite implements IPointerListener {
         onCancel?: (bm: BaseModal) => void,
     ) {
         super();
-        this.Dimension = Config().resolution;
+        this.Dimension = Config().Resolution;
         this.modalBody = new BaseModalBody(title, desc);
         this.modalConfirm = new BaseModalButton(this, onConfirm);
         this.modalBody.attachChildren(this.modalConfirm);
@@ -48,6 +48,7 @@ export default class BaseModal extends Sprite implements IPointerListener {
 
     onPointer(
         type: string,
+        button: number,
         localX: number,
         localY: number,
         inBound: boolean,
@@ -72,6 +73,7 @@ export default class BaseModal extends Sprite implements IPointerListener {
             if (inConfirm)
                 this.modalConfirm.onPointer(
                     type,
+                    button,
                     confirmX,
                     confirmY,
                     inConfirm,
@@ -88,6 +90,7 @@ export default class BaseModal extends Sprite implements IPointerListener {
                 if (inCancel)
                     this.modalCancel.onPointer(
                         type,
+                        button,
                         cancelX,
                         cancelY,
                         inCancel,

@@ -41,22 +41,22 @@ const getEngine: () => CustomEngine = () => {
         // resolution
         const fitScreen = () => {
             const fitWidth =
-                cfg.resolution.X * innerHeight > cfg.resolution.Y * innerWidth;
+                cfg.Resolution.X * innerHeight > cfg.Resolution.Y * innerWidth;
             if (fitWidth)
                 engine.resizeCanvas({
                     W: innerWidth,
-                    H: (innerWidth * cfg.resolution.Y) / cfg.resolution.X,
+                    H: (innerWidth * cfg.Resolution.Y) / cfg.Resolution.X,
                 });
             else
                 engine.resizeCanvas({
-                    W: (innerHeight * cfg.resolution.X) / cfg.resolution.Y,
+                    W: (innerHeight * cfg.Resolution.X) / cfg.Resolution.Y,
                     H: innerHeight,
                 });
             engine.Camera.reset();
             engine.Camera.scale(
                 fitWidth
-                    ? innerWidth / cfg.resolution.X
-                    : innerHeight / cfg.resolution.Y,
+                    ? innerWidth / cfg.Resolution.X
+                    : innerHeight / cfg.Resolution.Y,
             );
 
             // if (cfg.fullscreen) canvas.requestFullscreen({ navigationUI: "hide" });

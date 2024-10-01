@@ -22,6 +22,7 @@ export default abstract class BaseSlider
 
     onPointer(
         type: string,
+        button: number,
         localX: number,
         localY: number,
         inBound: boolean,

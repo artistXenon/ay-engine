@@ -1,7 +1,7 @@
 #[path = "file.rs"] mod file;
 
 use std::process;
-use tauri::command;
+use tauri::{command, AppHandle, Manager, PhysicalSize};
 use file::{read_file_or_default, write_file};
 
 const CONFIG_FILE_NAME: &str = "config.json";
@@ -45,6 +45,14 @@ pub fn panic(error: &str) {
 #[command]
 pub fn quit_game() {
     process::exit(0);
+}
+
+#[command]
+pub fn resize_window(app: AppHandle, width: i32, height: i32) {
+    let window = app.get_webview_window("main");
+    if let Some(window) = window {
+        let _ = window.set_size(PhysicalSize::new(width, height));
+    }
 }
 
 // #[tauri::command]
